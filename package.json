@@ -1,0 +1,16 @@
+{
+  "name": "data_warehouse",
+  "version": "0.0.1",
+  "description": "an full stack application to manage contacts for marketing companies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Frontend",
+    "Backend",
+    "Database"
+  ],
+  "author": "David Saavedra Vazquez",
+  "license": "ISC"
+}
