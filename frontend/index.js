@@ -1,6 +1,8 @@
 const user_name = document.querySelector("#inputUser");
 const user_password = document.querySelector("#inputPassword");
 const btn = document.querySelector("#submitBtn");
+const form = document.getElementsByTagName("form");
+
 user_password.autocomplete = "off";
 
 const form_email = "myname";
