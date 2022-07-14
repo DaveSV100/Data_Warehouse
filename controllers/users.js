@@ -1,5 +1,5 @@
 const express = require("express");
-const sequelize = require("../database/connection.js");
+const sequelize = require("../models/connection.js");
 const jwt = require("jsonwebtoken");
 const expressJwt = require("express-jwt");
 require("dotenv").config({ path: "../.env" });
