@@ -6,4 +6,13 @@
   scroll-behavior: smooth;
 }
 
+form {
+  margin: 30vh auto 0;
+  max-width: 50vw;
+}
+form h1 {
+  font-size: 2rem;
+  padding-bottom: 2vh;
+}
+
 /*# sourceMappingURL=master.css.map */

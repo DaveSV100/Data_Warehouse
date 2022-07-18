@@ -8,12 +8,11 @@ const expressJwt = require("express-jwt");
 const {
     verifyUser
 } = require("./middlewares/utils.js")
+
+
 router.get("/login", (req, res) => {
-    res.json("Bienvenido a Data Warehouse");
+    res.render("login");
 })
-
-//Verify User middleware must be linked here
-
 router.post("/login", verifyUser, async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -35,7 +34,7 @@ router.post("/login", verifyUser, async (req, res) => {
         const token = jwt.sign({payload}, jwtKey, { expiresIn: "1h" });
         res.status(200).json({Message: `You're welcome ${username}`, Token: token});
         //Save token into local storage
-        
+
         console.log(token);
     } catch (error) {
         res.status(400).json("Error message: " + error);
