@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const cors = require("cors");
 //Requiring routes
 const login = require("./controllers/login.js");
 const users = require("./controllers/users.js");
@@ -13,6 +14,7 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.set("views", "views");
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 //Routes
 app.use("/", login);

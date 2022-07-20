@@ -32,15 +32,29 @@ router.post("/login", verifyUser, async (req, res) => {
         //Into the payload will be inserted name of user, role (1 == admin, 0 == client), and ID
         console.log(payload)
         const token = jwt.sign({payload}, jwtKey, { expiresIn: "1h" });
-        res.status(200).json({Message: `You're welcome ${username}`, Token: token});
-        //Save token into local storage
+        // res.status(200).json({Message: `You're welcome ${username}`, Token: token});
+        res.send(token);
 
+        //Save token into local storage
+        // let user_data = {
+        //     id: id,
+        //     name: username,
+        //     token: token,
+        // }
+        // if(localStorage.getItem('user_data') == null) {
+        //     localStorage.setItem('user_data', '[]');
+        // }
         console.log(token);
     } catch (error) {
         res.status(400).json("Error message: " + error);
         console.error(error);
     }
 });
+router.get("/home", async(req, res) => {
+    const name = req.body;
+    console.log(name)
+    res.status(200).json("Home page ");
+})
 
 
 module.exports = router;
