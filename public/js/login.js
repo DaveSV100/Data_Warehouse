@@ -1,13 +1,9 @@
 const btn = document.getElementById("submitBtn");
 const email = document.getElementById("email-input");
 const password = document.getElementById("password-input");
+
 btn.addEventListener("click", (e) => {
     e.preventDefault();
-    console.log("You're welcome");
-    console.log({
-        "email": email.value,
-        "password": password.value
-    });
     fetch("http://localhost:3000/login", {
         method: "post",
         headers: {
@@ -20,15 +16,24 @@ btn.addEventListener("click", (e) => {
         })
     }).then(response => response.text().then(tex => {
         let token = "Bearer " + tex;
-
-        fetch ("http://localhost:3000/home",{
+        console.log(token);
+        //Save token into local storage
+        // let user_data = {
+        //     id: id,
+        //     name: username,
+        //     token: token,
+        // }
+        // if(localStorage.getItem('user_data') == null) {
+        //     localStorage.setItem('user_data', '[]');
+        // }
+        // window.location.href("/home")
+        fetch ("http://localhost:3000/home", {
             method: 'get',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json',
                 'Authorization': token
             }
-        }).then(response => response.json().then(json => console.log("this is the respose of the frontend "+ json)));
+        }).then(response => response.json().then(res => console.log("this is the respose of the frontend: "+ res)));
     }))
 });
-

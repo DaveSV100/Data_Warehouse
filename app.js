@@ -9,12 +9,14 @@ const users = require("./controllers/users.js");
 require("dotenv").config({ path: "./.env" });
 const port = process.env.SERVER_PORT || 3000;
 
-app.use(express.json());
+
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.set("views", "views");
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
+app.use(bodyParser.json());
+app.use(express.json());
+app.use(cors())
 
 //Routes
 app.use("/", login);
@@ -31,7 +33,6 @@ app.use((req, res, next) => {
     };
     res.status(404).send(useResponse.message);
 });
-
 
 //Listening to port
 app.listen(port, () => {
