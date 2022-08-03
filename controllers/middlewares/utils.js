@@ -1,4 +1,5 @@
 const sequelize = require("../../models/connection.js");
+
 const verifyUser = async (req, res, next) => {
     if(req.body.email && req.body.password != "") {
         try {
@@ -17,6 +18,22 @@ const verifyUser = async (req, res, next) => {
         res.status(400).json("You need to insert your email and password");
     }
 }
+
+//Middlewares for errors
+const logErrors = (err, req, res, next) => {
+  console.log(err);
+  next(err);
+}
+const errorHandler = (err, req, res, next) => {
+  res.status(400).json({
+    message: err.message,
+    // stack: err.stack
+  });
+}
+
+//Export
 module.exports = {
-    verifyUser
+    verifyUser,
+    logErrors,
+    errorHandler
 }

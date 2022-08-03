@@ -7,16 +7,40 @@ const jwtKey = "ccf8e092ea82347ff3103967c23b5c14bad323d3afa1106802d8ef5000cb744b
 const jwt = require("jsonwebtoken");
 const expressJwt = require("express-jwt");
 
-router.get("/users", async (req, res) => {
-    try{
-        const records = await sequelize.query("SELECT * FROM users", { type: sequelize.QueryTypes.SELECT })
-        res.status(200).json(records);
-        console.log(records);
-    } catch(error){
-        res.status(400).json(`Error message: ${error}`)
-        console.error(error);
-    }
+const UsersService = require("../services/users.service.js");
+const service = new UsersService();
+
+router.get("/users", async (req, res, next) => {
+  try{
+    const users = await service.find();
+    res.status(200).json(users)
+      // const records = await sequelize.query("SELECT * FROM users", { type: sequelize.QueryTypes.SELECT })
+      // res.status(200).json(records);
+      // console.log(records);
+  } catch(error){
+      // res.status(400).json(`Error message: ${error.message}`)
+      next(error);
+      // // next(error);
+  }
 });
+// router.get("/users", async (req, res, next) => {
+//     try{
+//         const records = await sequelize.query("SELECT * FROM users", { type: sequelize.QueryTypes.SELECT })
+//         res.status(200).json(records);
+//         console.log(records);
+//     } catch(error){
+//         res.status(400).json(`Error message: ${error}`)
+//         console.error(error);
+//         // next(error);
+//     }
+// });
+// router.get("/users", (req, res) => {
+//   const { size } = req.query;
+//   const limit = size || 10;
+//   for (let i = 0; i < limit; i++) {
+//     //res.json("Show users")
+//   }
+// })
 router.post("/users", async (req, res) => {
     try {
         const { name, email } = req.body;

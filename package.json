@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "app": "nodemon app.js",
-    "sass": "sass --watch public/styles/master.scss public/styles/master.css"
+    "sass": "sass --watch public/styles/master.scss public/styles/master.css",
+    "lint": "eslint"
   },
   "keywords": [
     "Frontend",
@@ -35,6 +36,10 @@
   },
   "devDependencies": {
     "dotenv": "^16.0.1",
-    "nodemon": "^2.0.19"
+    "eslint": "^8.21.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.19",
+    "prettier": "^2.7.1"
   }
 }

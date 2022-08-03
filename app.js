@@ -1,10 +1,17 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+//HELMET
 const cors = require("cors");
+//Require middlewares
+const {
+  logErrors,
+  errorHandler
+} = require("./controllers/middlewares/utils.js");
 //Requiring routes
 const login = require("./controllers/login.js");
 const users = require("./controllers/users.js");
+const { use } = require("passport");
 //Config
 require("dotenv").config({ path: "./.env" });
 const port = process.env.SERVER_PORT || 3000;
@@ -25,13 +32,18 @@ app.use("/", users);
 app.get("/", (req, res) => {
     res.render("index")
 });
+
+app.use(logErrors);
+app.use(errorHandler);
+
 app.use((req, res, next) => {
-    useResponse = {
+    const useResponse = {
         error: true,
         code: 404,
         message: "Page not found",
     };
-    res.status(404).send(useResponse.message);
+    // res.status(404).send(useResponse.message);
+    res.render("err/404")
 });
 
 //Listening to port
