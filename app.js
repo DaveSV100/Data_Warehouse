@@ -33,8 +33,8 @@ app.get("/", (req, res) => {
     res.render("index")
 });
 
-app.use(logErrors);
-app.use(errorHandler);
+// app.use(logErrors);
+// app.use(errorHandler);
 
 app.use((req, res, next) => {
     const useResponse = {

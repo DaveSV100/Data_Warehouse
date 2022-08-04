@@ -14,6 +14,13 @@ sequelize.authenticate().then(() => {
     console.error("Connection not stablished", err);
 })
 
+//***** PLATZI */
+// const sequelize = new Sequelize(path, {
+//   dialect: "postgres",
+//   loging: true
+// });
+//***** PLATZI */
+
 module.exports = sequelize;
 
 // const Sequelize = require("sequelize");

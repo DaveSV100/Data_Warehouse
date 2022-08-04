@@ -16,6 +16,16 @@ const jwtKey = "ccf8e092ea82347ff3103967c23b5c14bad323d3afa1106802d8ef5000cb744b
 const jwt = require("jsonwebtoken");
 const expressJwt = require("express-jwt");
 
+//Verify token
+// router.use(expressJwt({ secret: jwtKey, algorithms: ["HS256"] }).unless({ path: [ "/login" ] }));
+// router.use(function (err, req, res, next) {
+//     if (err.name === "UnauthorizedError") {
+//         res.status(401).send("You need to sign in or sign up");
+//     } else {
+//         next(err);
+//     }
+// })
+
 router.get("/home", async(req, res) => {
     // const name = req.body;
     // console.log(name);
@@ -26,6 +36,26 @@ router.get("/login", (req, res) => {
     res.render("login");
 })
 
+router.post("/login", async(req, res) => {
+    try {
+        const { email, password } = req.body;
+        const data = await sequelize.query("SELECT * FROM users WHERE email = ?", {replacements: [email], type: sequelize.QueryTypes.SELECT})
+        const id = data[0].ID;
+        const username = data[0].name;
+        const payload = {
+            id: id,
+            user: username
+        }
+        if (id) {
+            const token = jwt.sign({payload}, jwtKey, { expiresIn: "1h" });
+            console.log(token);
+            res.status(200).json(token);
+            res.redirect("/home");
+        }
+    } catch (error) {
+        
+    }
+})
 // router.post("/login", async (req, res) => {
 //     try {
 //         const email = req.body.email;
