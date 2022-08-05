@@ -2,6 +2,8 @@ const btn = document.getElementById("submitBtn");
 const email = document.getElementById("email-input");
 const password = document.getElementById("password-input");
 
+
+
 btn.addEventListener("click", (e) => {
     e.preventDefault();
     fetch("http://localhost:3000/login", {
@@ -16,16 +18,14 @@ btn.addEventListener("click", (e) => {
         })
     }).then(response => response.text().then(tex => {
         let token = "Bearer " + tex;
-        let final = JSON.stringify(token)
         console.log(token);
-        if(localStorage.getItem('user') == null) {
-            localStorage.setItem('user', token);
-        }
+        document.cookie = "user=" + encodeURIComponent(token);
+        window.location.href = 'http://127.0.0.1:3000/home';
+
         // let user_token = JSON.parse(localStorage.getItem('user'));
         // user_token.push(token);
         // localStorage.setItem('user', JSON.stringify(user_token));
 
-        window.location.href = 'http://127.0.0.1:3000/home';
 
         // let user_token = JSON.parse(localStorage.getItem('user'));
         // user_token.push(token);
@@ -47,7 +47,7 @@ btn.addEventListener("click", (e) => {
         //     headers: {
         //         'Accept': 'application/json, text/plain, */*',
         //         'Content-Type': 'application/json',
-        //         'Authorization': token
+        //         'Authorization': localStorage.getItem('user')
         //     }
         // }).then(response => response.json().then(res => console.log("this is the respose of the frontend: "+ res)));
     }))
