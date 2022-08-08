@@ -1,5 +1,13 @@
 import React from 'react';
+import Layout from '../containers/layout';
+import Login from '../containers/login';
+import '../styles/master.scss';
 
-const App = () => <h1>Hello React!</h1>
+const App = () => { 
+    return (
+        <Layout>
+            <Login />
+        </Layout>
+    )}
 
 export default App;
