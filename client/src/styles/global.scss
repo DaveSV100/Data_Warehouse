@@ -1,0 +1,19 @@
+$base-color: rgb(208, 208, 208);
+$color: rgba(#0000, 0.88);
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    background-color: $base-color;
+    color: $color;
+  }
+
+// @font-face {
+//   font-family: 'Open Sans';
+//   src: url('../src/fonts/open-sans-v29-latin-regular.woff2') format('woff2'), url('../src/fonts/open-sans-v29-latin-regular.woff') format('woff');
+//   font-weight: 400;
+//   font-style: normal;
+// }
+
+  
