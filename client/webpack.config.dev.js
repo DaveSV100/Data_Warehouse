@@ -13,15 +13,17 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
-        // publicPath: "/"
+        publicPath: "/",
         // assetModuleFilename: 'assets/images[hash][ext][query]'
     },
     resolve: {
         extensions: ['.js', '.jsx'],
-        // alias: {
-        //     '@components': path.resolve(__dirname, 'src/components/'),
-        //     '@styles': path.resolve(__dirname, 'src/styles/')
-        // }
+        alias: {
+            '@components': path.resolve(__dirname, 'src/components/'),
+            '@containers': path.resolve(__dirname, 'src/containers/'),
+            '@styles': path.resolve(__dirname, 'src/styles/'),
+            '@images': path.resolve(__dirname, 'src/assets/images/'),
+        }
         // alias: {
         //     '@images': path.resolve(__dirname, 'src/assets/images')
         // }
@@ -50,10 +52,10 @@ module.exports = {
                     'sass-loader'
                 ],
             }, 
-            // {
-            //     test: /\.svg/,
-            //     type: 'assets/resource'
-            // }, 
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                type: 'asset'
+            }, 
             // {
             //     test: /\.(woff|woff2)$/,
             //     use: {
