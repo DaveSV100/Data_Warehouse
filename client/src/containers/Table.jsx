@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import useGetUsers from '@hooks/useGetUsers';
 import '@styles/table.scss'
 import User from '@components/User';
-import axios from 'axios';
 
 const API = 'http://127.0.0.1:3000/users'
 
 const Table = () => {
-    const [users, setUsers] = useState([]);
-    useEffect(async () => {
-        const response = await axios(API);
-        setUsers(response.data);
-    }, [])
+    const users = useGetUsers(API);
+
     return (
         <section className='main-container'>
             <div className="titles">
@@ -32,10 +29,15 @@ const Table = () => {
                         <li>{user.email}</li>
                     </ul>
                 ))} */}
-                {users.map(function(user, i) {
+                {/* {users.map(function(user, i) {
                     return <p key={i}>{user.email}</p>
                             
-                })}
+                })} */}
+                {users.map(data => (
+                    <User userData={data} key={data.id} />
+                ))
+
+                }
             </div>
         </section>
     );

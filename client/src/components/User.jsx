@@ -1,9 +1,10 @@
 import React from 'react';
-const User = () => {
+const User = ({ userData }) => {
+
     return (
-        <div>
-            
-        </div>
+        <p>
+            {userData.email}
+        </p>
     );
 }
 
