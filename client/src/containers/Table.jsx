@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import '@styles/table.scss'
 import User from '@components/User';
 import axios from 'axios';
 
@@ -12,6 +13,18 @@ const Table = () => {
     }, [])
     return (
         <section className='main-container'>
+            <div className="titles">
+                <ul>
+                    <li><input type="checkbox" /></li>
+                    <li>Contacto</li>
+                    <li>País/Región</li>
+                    <li>Compañía</li>
+                    <li>Cargo</li>
+                    <li>Canal preferido</li>
+                    <li>Interés</li>
+                    <li>Acciones</li>
+                </ul>
+            </div>
             <div className="UsersList">
                 {/* {users.map(user => (
                     // console.log(user)
@@ -20,9 +33,8 @@ const Table = () => {
                     </ul>
                 ))} */}
                 {users.map(function(user, i) {
-                    return  <ul key={i}>
-                                <li key={i}>{user.email}</li>
-                            </ul>
+                    return <p key={i}>{user.email}</p>
+                            
                 })}
             </div>
         </section>

@@ -1,13 +1,11 @@
-$color: rgba(rgba(43, 120, 146, 0), 0.9);
+// $color: rgba(rgba(43, 120, 146, 0), 0.9);
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
-    color: $color;
   }
-
 // @font-face {
 //   font-family: 'Open Sans';
 //   src: url('../src/fonts/open-sans-v29-latin-regular.woff2') format('woff2'), url('../src/fonts/open-sans-v29-latin-regular.woff') format('woff');
