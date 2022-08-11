@@ -1,4 +1,12 @@
 @import '_vars.scss';
-body {
-    background-color: var(--main-color);
+
+.form {
+    max-width: 40vw;
+    margin: 30vh auto 0;
+    h1 {
+        padding-bottom: 2vh;
+    }
+    .input {
+        max-width: 35vw;
+    }
 }
