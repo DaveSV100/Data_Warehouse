@@ -1,4 +1,32 @@
+@import '_vars.scss';
+.Search {
+    height: 12vh;
+    width: 95vw;
+    margin: 5vh auto 0;
+    h2 {
+        font-size: 2rem;
+    }
+}
+.searchBox {
+    height: 5vh;
+    width: 30vw;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    outline: none;
+}
 .menuIcon {
-    width: 30px;
+    margin-left: -25px;
+    width: 20px;
     cursor: pointer;
+}
+.searchButton {
+    background: none;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    height: 5vh;
+    width: 2.5vw;
+    margin-left: 10px;
+    img {
+        width: 25px;
+    }
 }

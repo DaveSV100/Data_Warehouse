@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import useGetUsers from '@hooks/useGetUsers';
 import '@styles/table.scss'
 import User from '@components/User';
@@ -33,10 +33,10 @@ const Table = () => {
                     return <p key={i}>{user.email}</p>
                             
                 })} */}
+                
                 {users.map(data => (
-                    <User userData={data} key={data.id} />
+                    <User userData={data} key={data.ID} />
                 ))
-
                 }
             </div>
         </section>
