@@ -5,8 +5,7 @@ const User = ({ userData }) => {
 const { addSelection } = useContext(AppContext);
 
 // const handle = () => {
-//     if(req.current.checked) {
-        
+//     if(req.current.checked) {        
 //     }
 // }
 let toggle = false;
