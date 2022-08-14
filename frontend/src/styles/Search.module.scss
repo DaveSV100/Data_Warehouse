@@ -1,0 +1,39 @@
+@import '_vars.scss';
+.search {
+    height: 12vh;
+    width: 95vw;
+    margin: 5vh auto 0;
+    h2 {
+        font-size: 2rem;
+    }
+}
+.searchBox {
+    height: 5vh;
+    width: 30vw;
+    border: 1px solid $--border-color;
+    border-radius: 5px;
+    outline: none;
+}
+.menuContainer {
+    height: 30px;
+    width: 30px;
+    margin-top: -4vh;
+    margin-left: 27vw;
+    .menuIcon {
+        cursor: pointer;
+    }
+}
+.searchButton {
+    background: none;
+    border: 1px solid $--border-color;
+    border-radius: 5px;
+    height: 5vh;
+    width: 3vw;
+    transform: translateY(-5vh);
+    margin-left: 31vw;
+    .searchButton-img {
+        width: 25px;
+        cursor: pointer;
+    }
+}
+// width={25} height={25}

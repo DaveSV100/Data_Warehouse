@@ -14,7 +14,7 @@ const users = require("./controllers/users.js");
 const { use } = require("passport");
 //Config
 require("dotenv").config({ path: "./.env" });
-const port = process.env.SERVER_PORT || 3000;
+const port = process.env.SERVER_PORT || 3001;
 
 
 app.use(express.static("public"));

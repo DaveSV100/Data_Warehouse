@@ -1,0 +1,28 @@
+.Header {
+    background-color: #1562BA;
+    color: #fff;
+    display: flex;
+    height: 10vh;
+    justify-content: space-between;
+    align-items: center;
+    a {
+        color: #fff;
+        font-size: 2.5rem;
+        padding: 1%;
+        text-decoration: none;
+    }
+    a:hover {
+        color: #fff;
+    }
+    .links {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+            a {
+                padding-right: 50px;
+                font-size: 1rem;
+                color: #fff;
+                text-decoration: none;
+            }
+    }
+}
