@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "eslint src/ --fix"
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -22,6 +23,7 @@
     "sass": "^1.43.4"
   },
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "eslint": "8.21.0",
     "eslint-config-next": "^12.2.5"
   }

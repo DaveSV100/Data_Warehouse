@@ -1,13 +1,16 @@
-import Search from "@components/Search";
+import Search from '@components/Search';
 import Table from '@containers/Table';
-import "bootstrap/dist/css/bootstrap.min.css";
-
+import Head from 'next/head';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Home() {
   return (
-      <>
-        <Search />
-        <Table />
-      </>
-  )
+    <>
+      <Head>
+        <title>Data Warehouse</title>
+      </Head>
+      <Search />
+      <Table />
+    </>
+  );
 }

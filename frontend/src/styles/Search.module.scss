@@ -14,14 +14,20 @@
     border-radius: 5px;
     outline: none;
 }
-.menuContainer {
+// .menuContainer {
+//     height: 30px;
+//     width: 30px;
+//     margin-top: -4vh;
+//     margin-left: 27vw;
+//     .menuIcon {
+//         cursor: pointer;
+//     }
+// }
+.menuIcon {
     height: 30px;
     width: 30px;
-    margin-top: -4vh;
-    margin-left: 27vw;
-    .menuIcon {
-        cursor: pointer;
-    }
+    margin-left: -3vw;
+    cursor: pointer;
 }
 .searchButton {
     background: none;
@@ -29,8 +35,8 @@
     border-radius: 5px;
     height: 5vh;
     width: 3vw;
-    transform: translateY(-5vh);
-    margin-left: 31vw;
+    // transform: translateY(-5vh);
+    margin-left: 1.5vw;
     .searchButton-img {
         width: 25px;
         cursor: pointer;
