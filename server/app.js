@@ -12,6 +12,7 @@ const {
 const login = require("./controllers/login.js");
 const users = require("./controllers/users.js");
 const { use } = require("passport");
+const router = require("./controllers/login.js");
 //Config
 require("dotenv").config({ path: "./.env" });
 const port = process.env.SERVER_PORT || 3001;
