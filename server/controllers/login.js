@@ -42,6 +42,7 @@ router.get("/login", (req, res) => {
 router.post("/login", async(req, res) => {
     try {
         const { email, password } = req.body;
+        /* Example => email: nicole@icloud && password: 123 */
         const data = await sequelize.query("SELECT * FROM users WHERE email = ?", {replacements: [email], type: sequelize.QueryTypes.SELECT})
         const id = data[0].ID;
         const username = data[0].name;
@@ -53,7 +54,7 @@ router.post("/login", async(req, res) => {
             const token = jwt.sign({payload}, jwtKey, { expiresIn: "1h" });
             console.log(token);
             res.status(200).json(token);
-            res.redirect("/home");
+            // res.redirect("/home");
         }
     } catch (error) {
         console.error(error);

@@ -2,11 +2,12 @@ import React, { useRef } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import styles from '@styles/Login.module.scss';
+import { useAuth } from '@hooks/useAuth';
 
 const Login = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
-
+  const auth = useAuth();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +17,10 @@ const Login = () => {
       email,
       password
     };
-    console.log(data);
+    
+    auth.signIn(email, password).then(() => {
+      console.log('Login success');
+    });
   };
   return (
     // <Form action='/login' method="POST" ref={form} className='form'>
