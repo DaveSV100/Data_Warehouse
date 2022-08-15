@@ -1,4 +1,5 @@
 module.exports = {
+  parser: '@babel/eslint-parser',
   root: true,
   env: {
     browser: true,
@@ -11,11 +12,11 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'plugin:prettier/recommended',
     'next',
+    'next/babel',
     'next/core-web-vitals',
   ],
   rules: {
-    'semi': ['error', 'always'],
+    semi: ['error', 'always'],
     'prettier/prettier': 0,
-  }
-}
-export const parser = "babel-eslint";
+  },
+};
