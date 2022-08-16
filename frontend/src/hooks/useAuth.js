@@ -24,8 +24,17 @@ function useProvideAuth() {
                 'Content-Type': 'application/json'
             },
         };
-        const { data: acces_token } = await axios.post(endPoints.auth.login, { email, password }, options);
-        console.log(acces_token);
+        const { data: userData } = await axios.post(endPoints.auth.login, { email, password }, options);
+        const token = userData.token;
+        console.log(userData);
+        if(userData) {
+            Cookies.set('token', token, { expires: 5 });
+        }
+        axios.defaults.headers.Authorization = `Bearer ${token}`;
+        // const { data: users } = await axios.get(endPoints.users.getUsers);
+        // console.log(users);
+        console.log(userData.payload);
+        setUser(userData.payload);
     };
 
     return {

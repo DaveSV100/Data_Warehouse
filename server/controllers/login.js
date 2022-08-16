@@ -53,7 +53,10 @@ router.post("/login", async(req, res) => {
         if (id) {
             const token = jwt.sign({payload}, jwtKey, { expiresIn: "1h" });
             console.log(token);
-            res.status(200).json(token);
+            res.status(200).json({
+                token,
+                payload
+            });
             // res.redirect("/home");
         }
     } catch (error) {

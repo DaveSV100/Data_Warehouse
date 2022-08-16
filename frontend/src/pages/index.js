@@ -1,5 +1,6 @@
 import Search from '@components/Search';
 import Table from '@containers/Table';
+import { useAuth } from '@hooks/useAuth';
 import Head from 'next/head';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
