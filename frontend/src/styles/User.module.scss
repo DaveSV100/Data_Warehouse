@@ -1,0 +1,20 @@
+.contact-container {
+    width: 95vw;
+    margin: 0 auto 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 5vw 20vw 10vw 10vw 10vw 15vw 15vw 10vw;
+    grid-template-rows: 10vh;
+    align-items: center;
+    .input {
+        grid-column: 1/2;
+        align-self: center;
+        margin-bottom: 15px;
+    }
+    .id {
+        grid-column: 2/3;
+    }
+    .email {
+        grid-column: 3/4
+    }
+}
