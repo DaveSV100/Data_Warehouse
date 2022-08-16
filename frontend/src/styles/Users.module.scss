@@ -1,0 +1,12 @@
+@import '_vars.scss';
+
+.form {
+    max-width: 40vw;
+    margin: 5vh auto 0;
+    h1 {
+        padding-bottom: 2vh;
+    }
+    .input {
+        max-width: 35vw;
+    }
+}

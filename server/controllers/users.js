@@ -8,14 +8,14 @@ const jwt = require("jsonwebtoken");
 const { expressjwt: expressJwt } = require('express-jwt');
 
 
-router.use(expressJwt({ secret: jwtKey, algorithms: ["HS256"] }).unless({ path: [ "/login" ] }));
-router.use(function (err, req, res, next) {
-    if (err.name === "UnauthorizedError") {
-        res.status(401).send("You need to sign in or sign up");
-    } else {
-        next(err);
-    }
-})
+// router.use(expressJwt({ secret: jwtKey, algorithms: ["HS256"] }).unless({ path: [ "/login" ] }));
+// router.use(function (err, req, res, next) {
+//     if (err.name === "UnauthorizedError") {
+//         res.status(401).send("You need to sign in or sign up");
+//     } else {
+//         next(err);
+//     }
+// })
 
 //************************ PLATZI
 // const UsersService = require("../services/users.service.js");
