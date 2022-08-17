@@ -1,13 +1,11 @@
 import React, { useState, useContext } from 'react';
 import useGetUsers from '@hooks/useGetUsers';
+import endPoints from '@services/api';
 import User from '@components/User';
 import styles from '@styles/Table.module.scss';
 
-
-const API = 'http://127.0.0.1:3001/users'
-
 const Table = () => {
-    const users = useGetUsers(API);
+    const users = useGetUsers(endPoints.users.getUsers);
 
     return (
         <section className={styles['main-container']}>
@@ -36,7 +34,7 @@ const Table = () => {
                 })} */}
                 
                 {users.map(data => (
-                    <User userData={data} key={data.ID} />
+                    <User userData={data} key={`Contact-${data.ID}`} />
                 ))
                 }
             </div>
