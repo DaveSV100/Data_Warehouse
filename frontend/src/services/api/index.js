@@ -5,7 +5,8 @@ const endPoints = {
         login: `${API}login`,
     },
     users: {
-        getUsers: `${API}users`
+        getUsers: `${API}users`,
+        postUsers: `${API}users`
     }
 }
 

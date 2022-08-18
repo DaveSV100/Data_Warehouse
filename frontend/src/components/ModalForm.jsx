@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import { addContact } from '@services/api/contacts';
 import styles from '@styles/ModalForm.module.scss';
 
 
@@ -21,7 +22,7 @@ function ModalForm() {
         e.preventDefault();
         const formData = new FormData(formRef.current);
         const data = {
-            username: formData.get('name'),
+            name: formData.get('name'),
             lastname: formData.get('lastName'),
             job: formData.get("job"),
             email: formData.get("email"),
@@ -38,7 +39,9 @@ function ModalForm() {
             twitter: formData.get("Twitter"),
             preference3: preference3,
         }
-        console.log(data);
+        addContact(data).then((response) => {
+            console.log(response);
+        })
     }
 
 

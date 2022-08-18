@@ -62,7 +62,7 @@ router.post("/users", async (req, res) => {
     try {
         const { name, email } = req.body;
         const password = await bcrypt.hash(req.body.password, 10);
-        if (name && email && password) {
+        if (name && email) {
             const add = await sequelize.query(
                 "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)",
                 { replacements: { name, email, password } }
