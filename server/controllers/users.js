@@ -77,4 +77,19 @@ router.post("/users", async (req, res) => {
     }
 })
 
+router.delete("/users/:id", async(req, res) => {
+    //Delete user by ID
+    try {
+        const user_id = req.params.id;
+        const deleteUser = await sequelize.query(
+            "DELETE FROM users WHERE id = :id",
+            { replacements: {id: user_id} }
+        )
+        res.status(200).json("User removed");
+    } catch (error) {
+        console.error(error);
+        res.status(400).json("Error: " + error);
+    }
+})
+
 module.exports = router;

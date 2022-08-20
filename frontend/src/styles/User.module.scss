@@ -17,4 +17,16 @@
     .email {
         grid-column: 3/4
     }
+    .actions {
+        grid-column: 8/9;
+        img {
+            width: 30px;
+            cursor: pointer;
+        }
+    }
+    .alert {
+        position: absolute;
+        width: 10vw;
+        margin-left: 30vw;
+    }
 }

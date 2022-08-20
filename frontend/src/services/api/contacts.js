@@ -12,4 +12,9 @@ const addContact = async(body) => {
     return response.data;
 }
 
-export { addContact };
+const deleteContact = async (id) => {
+    const response = await axios(endPoints.users.deleteUsers(id));
+    return response.data;
+}
+
+export { addContact, deleteContact };
