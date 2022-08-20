@@ -13,7 +13,7 @@ const addContact = async(body) => {
 }
 
 const deleteContact = async (id) => {
-    const response = await axios(endPoints.users.deleteUsers(id));
+    const response = await axios.delete(endPoints.users.deleteUsers(id));
     return response.data;
 }
 

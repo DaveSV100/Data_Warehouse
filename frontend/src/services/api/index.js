@@ -7,7 +7,7 @@ const endPoints = {
     users: {
         getUsers: `${API}users`,
         postUsers: `${API}users`,
-        deleteUsers: `${API}users/:id`
+        deleteUsers: (id) => `${API}users/${id}`
     }
 }
 
