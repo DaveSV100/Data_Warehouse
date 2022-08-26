@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const { expressjwt: expressJwt } = require('express-jwt');
 
 
+
 // router.use(expressJwt({ secret: jwtKey, algorithms: ["HS256"] }).unless({ path: [ "/login" ] }));
 // router.use(function (err, req, res, next) {
 //     if (err.name === "UnauthorizedError") {
@@ -45,10 +46,12 @@ const { expressjwt: expressJwt } = require('express-jwt');
 //************************ PLATZI
 
 
+
 router.get("/users", async (req, res, next) => {
     try{
+        const cook = req
+        console.log(cook)
         const username = req.auth
-        console.log(username);
         const records = await sequelize.query("SELECT * FROM users", { type: sequelize.QueryTypes.SELECT })
         res.status(200).json(records);
         // console.log(records);
@@ -59,6 +62,26 @@ router.get("/users", async (req, res, next) => {
     }
 });
 router.post("/users", async (req, res) => {
+    try {
+
+        const { name, email } = req.body;
+        const password = await bcrypt.hash(req.body.password, 10);
+        if (name && email) {
+            const add = await sequelize.query(
+                "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)",
+                { replacements: { name, email, password } }
+            )
+            res.status(200).json("User added");
+        } else {
+            res.status(400).json("Error message: You need to insert the data required" );
+        }
+    } catch (error) {
+        res.status(400).json("Error message: " + error);
+        console.error(error);
+    }
+})
+
+router.put("/users", async (req, res) => {
     try {
         const { name, email } = req.body;
         const password = await bcrypt.hash(req.body.password, 10);
@@ -76,6 +99,8 @@ router.post("/users", async (req, res) => {
         console.error(error);
     }
 })
+
+
 
 router.delete("/users/:id", async(req, res) => {
     //Delete user by ID

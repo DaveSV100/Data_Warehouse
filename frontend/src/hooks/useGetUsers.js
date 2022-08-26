@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
+import endPoints from '@services/api';
 import axios from 'axios';
 
 const useGetUsers = (API) => {
   const [data, setData] = useState([]);
 
   async function getData() {
-    const response = await axios.get(API);
+    const response = await axios.get(endPoints.users.getUsers);
     setData(response.data);
   }
 

@@ -88,3 +88,38 @@
     // display: flex;
     // justify-content: space-around;
 }
+
+.contact-container {
+    width: 95vw;
+    margin: 0 auto 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 5vw 20vw 10vw 10vw 10vw 15vw 15vw 10vw;
+    grid-template-rows: 10vh;
+    align-items: center;
+    .input {
+        grid-column: 1/2;
+        align-self: center;
+        margin-bottom: 15px;
+    }
+    .id {
+        grid-column: 2/3;
+    }
+    .email {
+        grid-column: 3/4
+    }
+    .actions {
+        grid-column: 8/9;
+        img {
+            width: 30px;
+            cursor: pointer;
+        }
+    }
+}
+.alert {
+    position: absolute;
+    background-color: rgb(227, 223, 223);
+    width: 40vw;
+    margin-top: -50vh;
+    margin-left: 30vw;
+}
