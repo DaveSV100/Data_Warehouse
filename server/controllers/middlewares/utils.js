@@ -1,3 +1,4 @@
+const { Cookie } = require("express-session");
 const sequelize = require("../../models/connection.js");
 
 const verifyUser = async (req, res, next) => {
@@ -19,6 +20,12 @@ const verifyUser = async (req, res, next) => {
     }
 }
 
+const validateCookie = (req, res, next) => {
+    const token = req.cookies.token
+    console.log(token)
+    next()
+}
+
 //Middlewares for errors
 const logErrors = (err, req, res, next) => {
   console.log(err);
@@ -35,5 +42,6 @@ const errorHandler = (err, req, res, next) => {
 module.exports = {
     verifyUser,
     logErrors,
-    errorHandler
+    errorHandler,
+    validateCookie
 }

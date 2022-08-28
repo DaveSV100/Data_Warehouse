@@ -6,6 +6,8 @@ const bcrypt = require("bcrypt");
 const jwtKey = "ccf8e092ea82347ff3103967c23b5c14bad323d3afa1106802d8ef5000cb744b39c74693d69c1dc69adc4d1a029523790a6e83a3d33cb412f055fa55a2bee879";
 const jwt = require("jsonwebtoken");
 const { expressjwt: expressJwt } = require('express-jwt');
+const { validateCookie } = require('./middlewares/utils.js')
+const cookieParser = require("cookie-parser");
 
 
 
@@ -46,30 +48,33 @@ const { expressjwt: expressJwt } = require('express-jwt');
 //************************ PLATZI
 
 
+//Name, last name, email, profile, password
 
-router.get("/users", async (req, res, next) => {
-    try{
-        const cook = req
-        console.log(cook)
-        const username = req.auth
+router.get("/users", async (req, res) => {
+    try {
+        console.log('Cookies: ', req.cookies)
+        console.log('Signed Cookies: ', req.signedCookies)
+
         const records = await sequelize.query("SELECT * FROM users", { type: sequelize.QueryTypes.SELECT })
         res.status(200).json(records);
         // console.log(records);
-    } catch(error){
+    } catch(error) {
         res.status(400).json(`Error message: ${error}`)
         console.error(error);
         // next(error);
     }
 });
+
+//Name, last name, email, profile, password
+
 router.post("/users", async (req, res) => {
     try {
-
-        const { name, email } = req.body;
+        const { name, lastname, email, profile } = req.body;
         const password = await bcrypt.hash(req.body.password, 10);
-        if (name && email) {
+        if (name && lastname && email && profile && password) {
             const add = await sequelize.query(
-                "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)",
-                { replacements: { name, email, password } }
+                "INSERT INTO users (name, lastname, email, profile, password) VALUES (:name, :lastname, :email, :profile, :password)",
+                { replacements: { name, lastname, email, profile, password } }
             )
             res.status(200).json("User added");
         } else {

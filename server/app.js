@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser")
 //HELMET
 const cors = require("cors");
 //Require middlewares
@@ -26,6 +27,7 @@ app.set("views", "views");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(cookieParser());
 app.use(cors())
 
 //Routes
@@ -39,6 +41,8 @@ app.get("/", (req, res) => {
 // app.use(logErrors);
 // app.use(errorHandler);
 
+
+
 app.use((req, res, next) => {
     const useResponse = {
         error: true,
@@ -48,6 +52,7 @@ app.use((req, res, next) => {
     // res.status(404).send(useResponse.message);
     res.render("err/404")
 });
+
 
 //Listening to port
 app.listen(port, () => {

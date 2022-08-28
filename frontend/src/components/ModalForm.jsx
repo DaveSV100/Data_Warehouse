@@ -6,8 +6,6 @@ import Row from 'react-bootstrap/Row';
 import { addContact } from '@services/api/contacts';
 import styles from '@styles/ModalForm.module.scss';
 
-
-
 function ModalForm() {
     const formRef = useRef(null);
     const [region, setRegion] = useState(null);

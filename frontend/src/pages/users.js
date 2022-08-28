@@ -1,12 +1,31 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { addUser } from '@services/api/contacts';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import styles from '@styles/Users.module.scss'
+import styles from '@styles/Users.module.scss';
 
 const users = () => {
+  const formRef = useRef(null);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(formRef.current);
+    const data = {
+      //Name, last name, email, profile, password
+      name: formData.get('name'),
+      lastname: formData.get('lastName'),
+      email: formData.get('email'),
+      profile: formData.get('profile'),
+      password: formData.get('password'),
+    }
+    addUser(data).then((response) => {
+      console.log(response);
+    })
+  }
+
   return (
     <>
-      <Form action="/login" method="POST" className={styles.form}>
+      <Form action="/" method="POST" className={styles.form} ref={formRef}>
         <h1>Crear usuario</h1>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Nombre</Form.Label>
@@ -49,7 +68,7 @@ const users = () => {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox"></Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" onClick={handleSubmit}>
           Submit
         </Button>
       </Form>

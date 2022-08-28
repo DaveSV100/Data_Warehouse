@@ -12,9 +12,20 @@ const addContact = async(body) => {
     return response.data;
 }
 
+const addUser = async(body) => {
+    const config = {
+        headers: {
+            accept: '*/*',
+            'content-type': 'application/json',
+        },
+    };
+    const response = await axios.post(endPoints.users.postUsers, body, config);
+    return response.data;
+}
+
 const deleteContact = async (id) => {
     const response = await axios.delete(endPoints.users.deleteUsers(id));
     return response.data;
 }
 
-export { addContact, deleteContact };
+export { addContact, addUser, deleteContact };
