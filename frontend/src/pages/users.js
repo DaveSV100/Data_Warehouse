@@ -5,13 +5,8 @@ import Button from 'react-bootstrap/Button';
 import styles from '@styles/Users.module.scss';
 
 const users = () => {
-  const [value, setValue] = useState('');
   const [alert, setAlert] = useState(false);
   const formRef = useRef(null);
-
-  const handleReset = () => {
-    formRef.current.reset();
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,12 +34,12 @@ const users = () => {
 
   return (
     <>
-        {
-          alert && 
-          <div className={styles.alert}>
-            <h2>Usuario creado</h2>
-          </div>
-        }
+      {
+        alert && 
+        <div className={styles.alert}>
+          <h2>Usuario creado</h2>
+        </div>
+      }
       <Form action="/" method="POST" className={styles.form} ref={formRef}>
         <h1>Crear usuario</h1>
         <Form.Group className="mb-3" controlId="formBasicEmail">
