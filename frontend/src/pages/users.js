@@ -39,18 +39,17 @@ const users = () => {
 
   return (
     <>
-      <Form action="/" method="POST" className={styles.form} ref={formRef}>
         {
           alert && 
-          <div>
+          <div className={styles.alert}>
             <h2>Usuario creado</h2>
           </div>
         }
+      <Form action="/" method="POST" className={styles.form} ref={formRef}>
         <h1>Crear usuario</h1>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Nombre</Form.Label>
           <Form.Control
-            
             name="name"
             className={styles.input}
             type="text"

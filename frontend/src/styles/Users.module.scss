@@ -1,5 +1,18 @@
 @import '_vars.scss';
 
+.alert {
+    background-color: rgb(56, 136, 189);
+    position: relative;
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h2 {
+        color: #fff;
+    }
+}
+
 .form {
     max-width: 40vw;
     margin: 5vh auto 0;
