@@ -1,11 +1,18 @@
-import React, { useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { addUser } from '@services/api/contacts';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import styles from '@styles/Users.module.scss';
 
 const users = () => {
+  const [value, setValue] = useState('');
+  const [alert, setAlert] = useState(false);
   const formRef = useRef(null);
+
+  const handleReset = () => {
+    formRef.current.reset();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -20,16 +27,30 @@ const users = () => {
     }
     addUser(data).then((response) => {
       console.log(response);
+      if (response) {
+        formRef.current.reset();
+        setAlert(true);
+        setTimeout(() => {
+          setAlert(false)
+        }, 5000)
+      }
     })
   }
 
   return (
     <>
       <Form action="/" method="POST" className={styles.form} ref={formRef}>
+        {
+          alert && 
+          <div>
+            <h2>Usuario creado</h2>
+          </div>
+        }
         <h1>Crear usuario</h1>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Nombre</Form.Label>
           <Form.Control
+            
             name="name"
             className={styles.input}
             type="text"
