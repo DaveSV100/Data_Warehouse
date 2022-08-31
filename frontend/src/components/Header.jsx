@@ -16,7 +16,7 @@ const Header = () => {
                     <Link href='/companies'><a className={styles['links-item']}>Compañías</a></Link>
                     {/* {isAdmin && <Link href='/users'><a className={styles['links-item']}>Usuarios</a></Link> } */}
                     {role === "admin" ? <Link href='/users'><a className={styles['links-item']}>Usuarios</a></Link> : null}
-                    <Link href='/region'><a className={styles['links-item']}>Región/Ciudad</a></Link>
+                    <Link href='/regions'><a className={styles['links-item']}>Región/Ciudad</a></Link>
                 </ul>
             </header>
         </>  
