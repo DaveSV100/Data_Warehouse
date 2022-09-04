@@ -6,7 +6,7 @@ const useGetUsers = (API) => {
   const [data, setData] = useState([]);
 
   async function getData() {
-    const response = await axios.get(endPoints.users.getUsers);
+    const response = await axios.get(API);
     setData(response.data);
   }
 

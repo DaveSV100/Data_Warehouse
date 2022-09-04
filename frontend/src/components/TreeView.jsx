@@ -1,5 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { addRegion } from '@services/api/regions';
+import useGetUsers from '@hooks/useGetUsers';
+import endPoints from '@services/api';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -9,6 +11,7 @@ import TreeItem from '@mui/lab/TreeItem';
 
 export default function ControlledTreeView() {
 
+    const regions = useGetUsers(endPoints.regions.getRegions);
     const formRef = useRef(null);
 
     const handleSubmit = (e) => {
@@ -52,7 +55,7 @@ export default function ControlledTreeView() {
         setRegion(!region);
     }
 
-    const [region2, setRegion2] = useState('Sudamérica');
+    const [region2, setRegion2] = useState('Suda');
     const [editRegion2, setEditRegion2] = useState(false);
 
     const handleEdit = (region) => {
@@ -60,9 +63,18 @@ export default function ControlledTreeView() {
         setEditRegion2(!editRegion2);
     }
 
+    const generateRegions = (regions) => {
+      for (let i = 0; i < regions.length; i++) {
+        console.log(i)
+      }
+    }
+
+    const toString = (id) => {
+      return id.toString();
+    }
 
     return (
-      <Box sx={{ height: 270, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}>
+      <Box sx={{ height: 400, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}>
         <Box sx={{ mb: 1 }}>
           <Button onClick={handleExpandClick}>
             {expanded.length === 0 ? 'Expand all' : 'Collapse all'}
@@ -88,19 +100,18 @@ export default function ControlledTreeView() {
 
             </form>
             
-            <div onClick={() => handleRegion()}>Region
-                {region && 
-                    <div>Country
-                    </div>
-                }
-            </div>
-
-          <TreeItem nodeId="1" label="Applications">
-            <TreeItem nodeId="2" label="Calendar" />
-            <TreeItem nodeId="3" label="Chrome" />
-            <TreeItem nodeId="4" label="Webstorm" />
-          </TreeItem>
-          <TreeItem  nodeId="5" label={region2}>
+          {/* {
+            useEffect(() => {generateRegions()})
+          } */}
+          { 
+                  
+              regions.map(data => (
+                  <TreeItem nodeId={toString(data.ID)} label={data.Name} key={`Region-${data.ID}`}>
+                    <TreeItem nodeId="2" label="Hey"></TreeItem>
+                  </TreeItem>
+              ))
+          }
+          <TreeItem nodeId="5" label={region2}>
                 <button onClick={() => handleEdit(region2)}>Edit</button>
                 {editRegion2 && 
                     <div><input value={region2} onChange={(e) => setRegion2(e.target.value)}></input></div>
@@ -116,9 +127,21 @@ export default function ControlledTreeView() {
           </TreeItem>
         </TreeView>
       </Box>
+      
     );
   }
   
+
+
+
+
+
+
+
+
+
+
+
 
 // import * as React from 'react';
 // import TreeView from '@mui/lab/TreeView';
