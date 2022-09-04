@@ -8,6 +8,13 @@ const endPoints = {
         getUsers: `${API}users`,
         postUsers: `${API}users`,
         deleteUsers: (id) => `${API}users/${id}`
+    },
+    regions: {
+        getRegions: `${API}regions`,
+        postRegions: `${API}regions`,
+        putRegions: `${API}regions`,
+        deleteRegion: (id) => `${API}regions/${id}`
+
     }
 }
 

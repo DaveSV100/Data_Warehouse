@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { addRegion } from '@services/api/regions';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -7,6 +8,20 @@ import TreeView from '@mui/lab/TreeView';
 import TreeItem from '@mui/lab/TreeItem';
 
 export default function ControlledTreeView() {
+
+    const formRef = useRef(null);
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const formData = new FormData(formRef.current);
+      const data = {
+        name: formData.get('name')
+      }
+      addRegion(data).then((response) => {
+        console.log(response);
+      })
+    }
+
     const [expanded, setExpanded] = React.useState([]);
     const [selected, setSelected] = React.useState([]);
     console.log(selected);
@@ -66,8 +81,12 @@ export default function ControlledTreeView() {
           onNodeSelect={handleSelect}
           multiSelect
         >
-            <input placeholder='insert region'></input>
-            <button>Modificar</button>
+            <form action="/" method="POST" ref={formRef}>
+
+              <input name="name" placeholder='insert region'></input>
+              <button type="submit" onClick={handleSubmit}>Editar</button>  
+
+            </form>
             
             <div onClick={() => handleRegion()}>Region
                 {region && 
