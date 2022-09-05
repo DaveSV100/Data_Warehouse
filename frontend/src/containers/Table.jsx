@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import AppContext from '@context/AppContext';
 import { deleteContact } from '@services/api/contacts';
-import useGetUsers from '@hooks/useGetUsers';
+import useGetData from '@hooks/useGetData';
 import endPoints from '@services/api';
 import ContactModal from '@common/ContactModal';
 import MyVerticallyCenteredModal from '@common/Modal';
@@ -11,7 +11,7 @@ import editIcon from '@images/edit.png';
 import deleteIcon from '@images/delete.png';
 
 const Table = () => {
-    const users = useGetUsers(endPoints.users.getUsers);
+    const users = useGetData(endPoints.users.getUsers);
     const [modalShow, setModalShow] = useState(false);
     const [open, setOpen] = useState(false);
     const [edit, setEdit] = useState(false);

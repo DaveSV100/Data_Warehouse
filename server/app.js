@@ -13,6 +13,7 @@ const {
 const login = require("./controllers/login.js");
 const users = require("./controllers/users.js");
 const regions = require("./controllers/regions.js")
+const countries = require("./controllers/countries.js")
 const { use } = require("passport");
 const router = require("./controllers/login.js");
 //Config
@@ -35,6 +36,7 @@ app.use(cors())
 app.use("/", login);
 app.use("/", users);
 app.use("/", regions);
+app.use("/", countries);
 
 app.get("/", (req, res) => {
     res.render("index")

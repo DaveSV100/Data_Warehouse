@@ -14,7 +14,12 @@ const endPoints = {
         postRegions: `${API}regions`,
         putRegions: `${API}regions`,
         deleteRegion: (id) => `${API}regions/${id}`
-
+    },
+    countries: {
+        getCountries: `${API}countries`,
+        postCountries: `${API}countries`,
+        putCountries: `${API}countries`,
+        deleteCountry: (id) => `${API}countries/${id}`
     }
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { addRegion, updateRegion, deleteRegion } from '@services/api/regions';
-import useGetUsers from '@hooks/useGetUsers';
+import { addCountry, updateCountry, deleteCountry } from '@services/api/countries';
+import useGetData from '@hooks/useGetData';
 import endPoints from '@services/api';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -11,13 +12,17 @@ import TreeItem from '@mui/lab/TreeItem';
 
 export default function ControlledTreeView() {
 
+    //States
     const [edit, setEdit] = useState(false);
     const [open, setOpen] = useState(false);
     const [regionID, setRegionID] = useState("");
     const [countryID, setCountryID] = useState("");
-    const [addCountry, setAddCountry] = useState(false);
+    const [insertCountry, setInsertCountry] = useState(false);
 
-    const handleAddCountry = (e) => {
+  
+    //Countries
+    const countries = useGetData(endPoints.countries.getCountries);
+    const handleInsertCountry = (e) => {
       e.preventDefault();
       console.log('Adding country');
       const formData = new FormData(formRef.current);
@@ -27,9 +32,13 @@ export default function ControlledTreeView() {
         name: formData.get('newCountry')
       }
       console.log(newCountryData);
+      addCountry(newCountryData).then((response) => {
+        console.log(response);
+      })
     }
 
-    const regions = useGetUsers(endPoints.regions.getRegions);
+    //Regions
+    const regions = useGetData(endPoints.regions.getRegions);
     const formRef = useRef(null);
     const handleDelete = (id) => {
       console.log("eliminando id " + id);
@@ -147,7 +156,7 @@ export default function ControlledTreeView() {
                   
                   <TreeItem nodeId="25" label="Countriesss">
                     
-                    <button onClick={function States() { setAddCountry(true), setRegionID(region.ID), setCountryID(101) } }>Agregar país</button>
+                    <button onClick={function States() { setInsertCountry(true), setRegionID(region.ID), setCountryID(101) } }>Agregar país</button>
                     <button>Editar</button>
                     <button>Borrar</button>
 
@@ -166,12 +175,12 @@ export default function ControlledTreeView() {
           }
           {
             //Create country
-            addCountry && 
+            insertCountry && 
             <form action="/" method="POST" ref={formRef}>
               <h3>Agregar país</h3>
               <input type="text" name="newCountry" placeholder='Agregar país'></input>
-              <button onClick={() => setAddCountry(false)}>Cerrar</button>
-              <button type="submit" onClick={handleAddCountry}>Guardar cambios</button>
+              <button onClick={() => setInsertCountry(false)}>Cerrar</button>
+              <button type="submit" onClick={handleInsertCountry}>Guardar cambios</button>
             </form>
           }
           {

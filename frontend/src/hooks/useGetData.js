@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import endPoints from '@services/api';
 import axios from 'axios';
 
-const useGetUsers = (API) => {
+//This hook is used to get de data of any endpoint
+const useGetData = (API) => {
   const [data, setData] = useState([]);
 
   async function getData() {
@@ -21,7 +22,7 @@ const useGetUsers = (API) => {
   return data;
 }
 
-export default useGetUsers;
+export default useGetData;
 
 // const useGetUsers = (API) => {
 //   const [users, setUsers] = useState([]);
