@@ -22,6 +22,7 @@ export default function ControlledTreeView() {
   
     //Countries
     const countries = useGetData(endPoints.countries.getCountries);
+    console.log("countries:", countries)
     const handleInsertCountry = (e) => {
       e.preventDefault();
       console.log('Adding country');
@@ -153,21 +154,23 @@ export default function ControlledTreeView() {
                 <TreeItem nodeId={toString(region.ID)} label={region.Name} key={`Region-${region.ID}`}>
                   <button key={`Edit-button_${region.ID}`} onClick={function deleteStates() {setEdit(true), setID(region.ID)} }>Editar</button>
                   <button key={`Delete-button_${region.ID}`} onClick={function deleteStates() {setOpen(true), setID(region.ID)} }>Eliminar</button>
-                  
-                  <TreeItem nodeId="25" label="Countriesss">
-                    
-                    <button onClick={function States() { setInsertCountry(true), setRegionID(region.ID), setCountryID(101) } }>Agregar país</button>
-                    <button>Editar</button>
-                    <button>Borrar</button>
-
-                    <TreeItem nodeId="26" label="Cityyy">
-                      <button>Agregar ciudad</button>
-                      <button>Editar</button>
-                      <button>Borrar</button>
-                    </TreeItem>
-
-                  </TreeItem>
-
+                  {countries.map(country => 
+                    {
+                      if(region.ID == country.Region_ID)
+                      return (
+                        <TreeItem nodeId={toString(country.ID + 1000)} label={country.Name} key={`Country-${country.ID}`}>
+                          <button onClick={function States() { setInsertCountry(true), setRegionID(region.ID), setCountryID(101) } }>Agregar país</button>
+                          <button>Editar</button>
+                          <button>Borrar</button>
+                          <TreeItem nodeId="26" label="Cityyy" key={'204'}>
+                            <button>Agregar ciudad</button>
+                            <button>Editar</button>
+                            <button>Borrar</button>
+                          </TreeItem>
+                        </TreeItem>
+                      )
+                    }
+                    )}
                 </TreeItem>
               </>
                 
@@ -204,7 +207,7 @@ export default function ControlledTreeView() {
           }
 
 
-          <TreeItem nodeId="5" label={region2}>
+          <TreeItem nodeId="5" label={region2} key={'206'}>
                 {/* <button onClick={() => handleEdit(region2)}>Edit</button>
                 {editRegion2 && 
                     <div><input value={region2} onChange={(e) => setRegion2(e.target.value)}></input></div>
