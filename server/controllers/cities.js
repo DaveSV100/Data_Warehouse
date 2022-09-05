@@ -3,9 +3,9 @@ const router = express.Router();
 require("dotenv").config({ path: "../.env" });
 const sequelize = require("../models/connection.js");
 
-router.get("/countries", async (req, res) => {
+router.get("/cities", async (req, res) => {
     try {
-        const records = await sequelize.query("SELECT * FROM countries", { type: sequelize.QueryTypes.SELECT })
+        const records = await sequelize.query("SELECT * FROM cities", { type: sequelize.QueryTypes.SELECT })
         res.status(200).json(records);
     } catch(error) {
         res.status(400).json(`Error message: ${error}`)
@@ -13,15 +13,15 @@ router.get("/countries", async (req, res) => {
     }
 });
 
-router.post("/countries", async (req, res) => {
+router.post("/cities", async (req, res) => {
     try {
-        const { region_id, name } = req.body;
-        if (region_id, name) {
+        const { country_id, name } = req.body;
+        if (country_id, name) {
             const add = await sequelize.query(
-                "INSERT INTO Countries (Region_id, Name) VALUES (:region_id, :name)",
-                { replacements: { region_id, name } }
+                "INSERT INTO cities (Country_id, Name) VALUES (:country_id, :name)",
+                { replacements: { country_id, name } }
             )
-            res.status(200).json("Country added");
+            res.status(200).json("City added");
         } else {
             res.status(400).json("Error message: You need to insert the data required" );
         }
@@ -31,15 +31,15 @@ router.post("/countries", async (req, res) => {
     }
 })
 
-router.put("/countries", async (req, res) => {
+router.put("/cities", async (req, res) => {
     try {
         const { id, name } = req.body;
         if (id, name) {
             const add = await sequelize.query(
-                "UPDATE countries SET Name = :name WHERE ID = :id",
+                "UPDATE cities SET Name = :name WHERE ID = :id",
                 { replacements: { name, id: id } }
             )
-            res.status(200).json("Country updated");
+            res.status(200).json("City updated");
         } else {
             res.status(400).json("Error message: You need to insert the data required" );
         }
@@ -51,15 +51,15 @@ router.put("/countries", async (req, res) => {
 
 
 
-router.delete("/countries/:id", async(req, res) => {
+router.delete("/cities/:id", async(req, res) => {
     //Delete user by ID
     try {
-        const country_id = req.params.id;
+        const city_id = req.params.id;
         const deleteUser = await sequelize.query(
-            "DELETE FROM countries WHERE id = :id",
-            { replacements: {id: country_id} }
+            "DELETE FROM cities WHERE id = :id",
+            { replacements: {id: city_id} }
         )
-        res.status(200).json("Country removed");
+        res.status(200).json("City removed");
     } catch (error) {
         console.error(error);
         res.status(400).json("Error: " + error);

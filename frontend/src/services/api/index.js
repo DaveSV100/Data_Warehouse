@@ -20,6 +20,12 @@ const endPoints = {
         postCountries: `${API}countries`,
         putCountries: `${API}countries`,
         deleteCountry: (id) => `${API}countries/${id}`
+    },
+    cities: {
+        getCities: `${API}cities`,
+        postCities: `${API}cities`,
+        putCities: `${API}cities`,
+        deleteCity: (id) => `${API}cities/${id}`
     }
 }
 
