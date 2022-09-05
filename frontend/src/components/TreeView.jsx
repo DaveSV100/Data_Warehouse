@@ -13,7 +13,21 @@ export default function ControlledTreeView() {
 
     const [edit, setEdit] = useState(false);
     const [open, setOpen] = useState(false);
-    const [ID, setID] = useState("");
+    const [regionID, setRegionID] = useState("");
+    const [countryID, setCountryID] = useState("");
+    const [addCountry, setAddCountry] = useState(false);
+
+    const handleAddCountry = (e) => {
+      e.preventDefault();
+      console.log('Adding country');
+      const formData = new FormData(formRef.current);
+      const newCountryData = {
+        id: countryID,
+        region_id: regionID,
+        name: formData.get('newCountry')
+      }
+      console.log(newCountryData);
+    }
 
     const regions = useGetUsers(endPoints.regions.getRegions);
     const formRef = useRef(null);
@@ -26,9 +40,8 @@ export default function ControlledTreeView() {
     const handleEdit = (e) => {
       e.preventDefault();
       const formData = new FormData(formRef.current);
-      console.log(typeof(ID))
       const data = {
-        id: ID,
+        id: regionID,
         name: formData.get('change')
       }
       console.log(data);
@@ -98,7 +111,7 @@ export default function ControlledTreeView() {
     }
 
     return (
-      <Box sx={{ height: 400, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}>
+      <Box sx={{ flexGrow: 1, maxWidth: 800, overflowY: 'auto', margin: '5vh auto 0' }}>
         <Box sx={{ mb: 1 }}>
           <Button onClick={handleExpandClick}>
             {expanded.length === 0 ? 'Expand all' : 'Collapse all'}
@@ -117,6 +130,7 @@ export default function ControlledTreeView() {
           onNodeSelect={handleSelect}
           multiSelect
         >
+
             <form action="/" method="POST" ref={formRef}>
 
               <input name="name" placeholder='insert region'></input>
@@ -125,32 +139,59 @@ export default function ControlledTreeView() {
             </form>
             
           { 
-              regions.map(data => (
-                <>
-                 <TreeItem nodeId={toString(data.ID)} label={data.Name} key={`Region-${data.ID}`}>
-                    <button key={`Edit-button_${data.ID}`} onClick={function deleteStates() {setEdit(true), setID(data.ID)} }>Editar</button>
-                    <button key={`Delete-button_${data.ID}`} onClick={function deleteStates() {setOpen(true), setID(data.ID)} }>Eliminar</button>
+            regions.map(region => (
+              <>
+                <TreeItem nodeId={toString(region.ID)} label={region.Name} key={`Region-${region.ID}`}>
+                  <button key={`Edit-button_${region.ID}`} onClick={function deleteStates() {setEdit(true), setID(region.ID)} }>Editar</button>
+                  <button key={`Delete-button_${region.ID}`} onClick={function deleteStates() {setOpen(true), setID(region.ID)} }>Eliminar</button>
+                  
+                  <TreeItem nodeId="25" label="Countriesss">
+                    
+                    <button onClick={function States() { setAddCountry(true), setRegionID(region.ID), setCountryID(101) } }>Agregar país</button>
+                    <button>Editar</button>
+                    <button>Borrar</button>
+
+                    <TreeItem nodeId="26" label="Cityyy">
+                      <button>Agregar ciudad</button>
+                      <button>Editar</button>
+                      <button>Borrar</button>
+                    </TreeItem>
+
                   </TreeItem>
-                </>
-                 
-              ))
+
+                </TreeItem>
+              </>
+                
+            ))
           }
           {
+            //Create country
+            addCountry && 
+            <form action="/" method="POST" ref={formRef}>
+              <h3>Agregar país</h3>
+              <input type="text" name="newCountry" placeholder='Agregar país'></input>
+              <button onClick={() => setAddCountry(false)}>Cerrar</button>
+              <button type="submit" onClick={handleAddCountry}>Guardar cambios</button>
+            </form>
+          }
+          {
+            //Update region
             edit && 
-                <form action="/" method="PUT" ref={formRef}>
-                  <h2>Editar</h2>
-                  <input name="change" placeholder='Insertar...'></input>
-                  <button onClick={() => setEdit(false)}>Cerrar</button>
-                  <button type="submit" onClick={handleEdit}>Guardar cambios</button>
-                </form>
+            <form action="/" method="PUT" ref={formRef}>
+              <h2>Editar</h2>
+              <input name="change" placeholder='Insertar...'></input>
+              <button onClick={() => setEdit(false)}>Cerrar</button>
+              <button type="submit" onClick={handleEdit}>Guardar cambios</button>
+            </form>
           }
           {
+            //Delete region
             open && 
-                <div>
-                      <h2>¿Seguro que deseas eliminar?</h2>
-                      <button onClick={() => setOpen(false)}>Cerrar</button>
-                      <button onClick={() => handleDelete(ID)}>Eliminar</button>
-                </div>
+            <div>
+                  <h2>¿Seguro que deseas eliminar?</h2>
+                  <button onClick={() => setOpen(false)}>Cerrar</button>
+                  <button onClick={() => handleDelete(ID)}>Eliminar</button>
+            </div>
           }
 
 
