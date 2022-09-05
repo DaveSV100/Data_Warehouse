@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { addRegion } from '@services/api/regions';
+import { addRegion, deleteRegion } from '@services/api/regions';
 import useGetUsers from '@hooks/useGetUsers';
 import endPoints from '@services/api';
 import Box from '@mui/material/Box';
@@ -11,8 +11,17 @@ import TreeItem from '@mui/lab/TreeItem';
 
 export default function ControlledTreeView() {
 
+    const [open, setOpen] = useState(false);
+    const [ID, setID] = useState("");
+
     const regions = useGetUsers(endPoints.regions.getRegions);
     const formRef = useRef(null);
+
+    const handleDelete = (id) => {
+      console.log("eliminando id " + id);
+      deleteRegion(id).then(response => console.log(response));
+      setOpen(false);
+    }
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -100,16 +109,23 @@ export default function ControlledTreeView() {
 
             </form>
             
-          {/* {
-            useEffect(() => {generateRegions()})
-          } */}
           { 
-                  
               regions.map(data => (
-                  <TreeItem nodeId={toString(data.ID)} label={data.Name} key={`Region-${data.ID}`}>
-                    <TreeItem nodeId="2" label="Hey"></TreeItem>
+                <>
+                 <TreeItem nodeId={toString(data.ID)} label={data.Name} key={`Region-${data.ID}`}>
+                    <button key={`Button-${data.ID}`} onClick={function deleteStates() {setOpen(true), setID(data.ID)} }>Delete</button>
                   </TreeItem>
+                </>
+                 
               ))
+          }
+          {
+            open && 
+                <div>
+                      <h2>¿Seguro que deseas eliminar?</h2>
+                      <button onClick={() => setOpen(false)}>Cerrar</button>
+                      <button onClick={() => handleDelete(ID)}>Eliminar</button>
+                </div>
           }
           <TreeItem nodeId="5" label={region2}>
                 <button onClick={() => handleEdit(region2)}>Edit</button>
