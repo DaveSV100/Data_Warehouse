@@ -12,9 +12,20 @@ const addRegion = async(body) => {
     return response.data;
 }
 
+const updateRegion = async(body) => {
+    const config = {
+        headers: {
+            accept: '*/*',
+            'content-type': 'application/json',
+        },
+    };
+    const response = await axios.put(endPoints.regions.putRegions, body, config);
+    return response.data;
+}
+
 const deleteRegion = async (id) => {
     const response = await axios.delete(endPoints.regions.deleteRegion(id));
     return response.data;
 }
 
-export { addRegion, deleteRegion };
+export { addRegion, updateRegion, deleteRegion };

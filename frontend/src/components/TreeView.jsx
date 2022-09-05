@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { addRegion, deleteRegion } from '@services/api/regions';
+import { addRegion, updateRegion, deleteRegion } from '@services/api/regions';
 import useGetUsers from '@hooks/useGetUsers';
 import endPoints from '@services/api';
 import Box from '@mui/material/Box';
@@ -11,16 +11,31 @@ import TreeItem from '@mui/lab/TreeItem';
 
 export default function ControlledTreeView() {
 
+    const [edit, setEdit] = useState(false);
     const [open, setOpen] = useState(false);
     const [ID, setID] = useState("");
 
     const regions = useGetUsers(endPoints.regions.getRegions);
     const formRef = useRef(null);
-
     const handleDelete = (id) => {
       console.log("eliminando id " + id);
       deleteRegion(id).then(response => console.log(response));
       setOpen(false);
+    }
+
+    const handleEdit = (e) => {
+      e.preventDefault();
+      const formData = new FormData(formRef.current);
+      console.log(typeof(ID))
+      const data = {
+        id: ID,
+        name: formData.get('change')
+      }
+      console.log(data);
+      updateRegion(data).then((response) => {
+        console.log(response);
+      })
+      // setEdit(false)
     }
 
     const handleSubmit = (e) => {
@@ -67,10 +82,10 @@ export default function ControlledTreeView() {
     const [region2, setRegion2] = useState('Suda');
     const [editRegion2, setEditRegion2] = useState(false);
 
-    const handleEdit = (region) => {
-        console.log(`Editing region ${region}`);
-        setEditRegion2(!editRegion2);
-    }
+    // const handleEdit2 = (region) => {
+    //     console.log(`Editing region ${region}`);
+    //     setEditRegion2(!editRegion2);
+    // }
 
     const generateRegions = (regions) => {
       for (let i = 0; i < regions.length; i++) {
@@ -113,11 +128,21 @@ export default function ControlledTreeView() {
               regions.map(data => (
                 <>
                  <TreeItem nodeId={toString(data.ID)} label={data.Name} key={`Region-${data.ID}`}>
-                    <button key={`Button-${data.ID}`} onClick={function deleteStates() {setOpen(true), setID(data.ID)} }>Delete</button>
+                    <button key={`Edit-button_${data.ID}`} onClick={function deleteStates() {setEdit(true), setID(data.ID)} }>Editar</button>
+                    <button key={`Delete-button_${data.ID}`} onClick={function deleteStates() {setOpen(true), setID(data.ID)} }>Eliminar</button>
                   </TreeItem>
                 </>
                  
               ))
+          }
+          {
+            edit && 
+                <form action="/" method="PUT" ref={formRef}>
+                  <h2>Editar</h2>
+                  <input name="change" placeholder='Insertar...'></input>
+                  <button onClick={() => setEdit(false)}>Cerrar</button>
+                  <button type="submit" onClick={handleEdit}>Guardar cambios</button>
+                </form>
           }
           {
             open && 
@@ -127,11 +152,13 @@ export default function ControlledTreeView() {
                       <button onClick={() => handleDelete(ID)}>Eliminar</button>
                 </div>
           }
+
+
           <TreeItem nodeId="5" label={region2}>
-                <button onClick={() => handleEdit(region2)}>Edit</button>
+                {/* <button onClick={() => handleEdit(region2)}>Edit</button>
                 {editRegion2 && 
                     <div><input value={region2} onChange={(e) => setRegion2(e.target.value)}></input></div>
-                }
+                } */}
                 <TreeItem nodeId="6" label="Argentina">
                     <TreeItem nodeId="7" label="Rosario"></TreeItem>
                     <TreeItem nodeId="8" label="Buenos Aires"></TreeItem>

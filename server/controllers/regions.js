@@ -33,11 +33,11 @@ router.post("/regions", async (req, res) => {
 
 router.put("/regions", async (req, res) => {
     try {
-        const { name } = req.body;
-        if (name) {
+        const { id, name } = req.body;
+        if (id, name) {
             const add = await sequelize.query(
-                "INSERT INTO users (name) VALUES (:name)",
-                { replacements: { name } }
+                "UPDATE regions SET Name = :name WHERE ID = :id",
+                { replacements: { name, id: id } }
             )
             res.status(200).json("Region updated");
         } else {
