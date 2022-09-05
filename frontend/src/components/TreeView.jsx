@@ -34,9 +34,9 @@ export default function ControlledTreeView() {
       name: formData.get('newCity')
     }
     console.log(newCityData);
-    // addCity(newCityData).then((response) => {
-    //   console.log(response);
-    // })
+    addCity(newCityData).then((response) => {
+      console.log(response);
+    })
   }
 
   //Countries
@@ -168,11 +168,18 @@ export default function ControlledTreeView() {
                         <button onClick={function States() { setInsertCountry(true), setRegionID(region.ID) } }>Agregar país</button>
                         <button>Editar</button>
                         <button>Borrar</button>
-                        <TreeItem nodeId="26" label="Cityyy" key={'204'}>
-                          <button onClick={function States() { setInsertCity(true), setCountryID(country.ID) } }>Agregar ciudad</button>
-                          <button>Editar</button>
-                          <button>Borrar</button>
-                        </TreeItem>
+                        {cities.map(city => 
+                          {
+                            if(country.ID == city.Country_ID)
+                            return (
+                              <TreeItem nodeId={toString(city.ID + 2000)} label={city.Name} key={`City-${city.ID}`}>
+                              <button onClick={function States() { setInsertCity(true), setCountryID(country.ID) } }>Agregar ciudad</button>
+                              <button>Editar</button>
+                              <button>Borrar</button>
+                              </TreeItem>
+                            )
+                          }
+                        )}
                       </TreeItem>
                     )
                   }
