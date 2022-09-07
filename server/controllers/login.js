@@ -1,9 +1,11 @@
 // if (process.env.NODE_ENV !== 'production') {
 //     require('dotenv').config()
 //   }
+
 const express = require("express");
 const router = express.Router();
 const sequelize = require("../models/connection.js");
+const { serialize } = require("cookie");
 const bcrypt = require("bcrypt");
 const {
     verifyUser
@@ -51,12 +53,19 @@ router.post("/login", async(req, res) => {
         }
         if (id) {
             const token = jwt.sign({payload}, jwtKey, { expiresIn: "1h" });
-            console.log(token);
+            // console.log(token);
+            const serialized = serialize('newToken', token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                sameSite: 'none',
+                path: '/'
+            })
+            // console.log(serialized)
+            res.setHeader('Set-Cookie', serialized)
             res.status(200).json({
                 token,
                 payload
             });
-            // res.redirect("/home");
         }
     } catch (error) {
         console.error(error);

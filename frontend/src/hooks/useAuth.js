@@ -29,10 +29,9 @@ function useProvideAuth() {
         console.log(userData);
         if(userData) {
             Cookies.set('token', token, { expires: 5 });
-        }
+        } 
         axios.defaults.headers.Authorization = `Bearer ${token}`;
-        // const { data: users } = await axios.get(endPoints.users.getUsers);
-        // console.log(users);
+        
         console.log(userData.payload);
         setUser(userData.payload);
     };

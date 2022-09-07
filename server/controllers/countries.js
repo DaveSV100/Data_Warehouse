@@ -55,7 +55,7 @@ router.delete("/countries/:id", async(req, res) => {
     //Delete user by ID
     try {
         const country_id = req.params.id;
-        const deleteUser = await sequelize.query(
+        const deleteCountry = await sequelize.query(
             "DELETE FROM countries WHERE id = :id",
             { replacements: {id: country_id} }
         )

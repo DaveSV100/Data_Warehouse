@@ -52,9 +52,8 @@ const cookieParser = require("cookie-parser");
 
 router.get("/users", async (req, res) => {
     try {
-        console.log('Cookies: ', req.cookies)
-        console.log('Signed Cookies: ', req.signedCookies)
-
+        const authHeader = req.headers
+        console.log(authHeader)
         const records = await sequelize.query("SELECT * FROM users", { type: sequelize.QueryTypes.SELECT })
         res.status(200).json(records);
         // console.log(records);

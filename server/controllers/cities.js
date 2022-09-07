@@ -35,7 +35,7 @@ router.put("/cities", async (req, res) => {
     try {
         const { id, name } = req.body;
         if (id, name) {
-            const add = await sequelize.query(
+            const update = await sequelize.query(
                 "UPDATE cities SET Name = :name WHERE ID = :id",
                 { replacements: { name, id: id } }
             )
