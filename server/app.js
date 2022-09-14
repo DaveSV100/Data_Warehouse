@@ -15,6 +15,7 @@ const users = require("./controllers/users.js");
 const regions = require("./controllers/regions.js");
 const countries = require("./controllers/countries.js");
 const cities = require("./controllers/cities.js");
+const companies = require("./controllers/companies.js")
 const { use } = require("passport");
 const router = require("./controllers/login.js");
 //Config
@@ -39,6 +40,7 @@ app.use("/", users);
 app.use("/", regions);
 app.use("/", countries);
 app.use("/", cities);
+app.use("/", companies);
 
 app.get("/", (req, res) => {
     res.render("index")

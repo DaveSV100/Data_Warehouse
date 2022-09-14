@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyledEngineProvider } from '@mui/material/styles';
-import FileSystemNavigator from '@components/TreeView';
+import FileSystemNavigator from '@containers/Regions';
 
 const region = () => {
     return (
