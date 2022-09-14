@@ -6,7 +6,8 @@ const { getCityID } = require("./utils/index.js")
 
 router.get("/companies", async (req, res) => {
     try {
-        const records = await sequelize.query("SELECT * FROM Companies", { type: sequelize.QueryTypes.SELECT })
+        const records = await sequelize.query("SELECT Companies.Name, Cities.Name as City, Companies.Direction, Companies.Email, Companies.Phone FROM Companies INNER JOIN Cities on Companies.City_id = Cities.ID", { type: sequelize.QueryTypes.SELECT })
+        console.log(records)
         res.status(200).json(records);
     } catch(error) {
         res.status(400).json(`Error message: ${error}`)
@@ -18,18 +19,15 @@ router.post("/companies", async (req, res) => {
     try {
         const { name, city, direction, email, phone } = req.body;
         const city_id = await getCityID(city);
-        console.log(city_id);
+        if (name, city_id, direction, email, phone) {
+            const add = await sequelize.query(
+                "INSERT INTO Companies (Name, City_id, Direction, Email, Phone) VALUES (:name, :city_id, :direction, :email, :phone)",
+                { replacements: {name, city_id, direction, email, phone} }
+            )
             res.status(200).json("Company added");
-
-        // if (name, city_id, direction, email, phone) {ci
-        //     const add = await sequelize.query(
-        //         "INSERT INTO Companies (Name, City_id, Direction, Email, Phone) VALUES (:name, :city_id, :direction, :email, :phone)",
-        //         { replacements: {name, city_id, direction, email, phone } }
-        //     )
-        //     res.status(200).json("Company added");
-        // } else {
-        //     res.status(400).json("Error message: You need to insert the data required" );
-        // }
+        } else {
+            res.status(400).json("Error message: You need to insert the data required" );
+        }
     } catch (error) {
         res.status(400).json("Error message: " + error);
         console.error(error);

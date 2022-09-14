@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from 'react';
+import useGetData from '@hooks/useGetData';
+import endPoints from '@services/api';
 import styles from '@styles/Companies.module.scss';
 import editIcon from '@images/edit.png';
 import deleteIcon from '@images/delete.png';
 
 const Companies = () => {
+    const companies = useGetData(endPoints.companies.getCompanies);
+
     return (
         <>
         <h2>Compañías</h2>
@@ -20,18 +24,29 @@ const Companies = () => {
                 </ul>
             </div>
             <div className={styles.UsersList}>
+                {companies.map(data => (
                     <div className={styles['contact-container']} key={`Contact-`}>
-                        <p className={styles.id}>
-                            DAVID
-                        </p>
-                        <p className={styles.email}>
-                            Hello
-                        </p>
-                        <div className={styles.actions}>
-                            <img src={editIcon.src} alt="Editar contacto" className={styles.editIcon} />
-                            <img src={deleteIcon.src} alt="Borrar contacto" className={styles.deleteIcon} />
-                        </div>
+                    <p className={styles.name}>
+                        {data.Name}
+                    </p>
+                    <p className={styles.city_id}>
+                        {data.City}
+                    </p>
+                    <p className={styles.direction}>
+                        {data.Direction}
+                    </p>
+                    <p className={styles.email}>
+                        {data.Email}
+                    </p>
+                    <p className={styles.phone}>
+                        {data.Phone}
+                    </p>
+                    <div className={styles.actions}>
+                        <img src={editIcon.src} alt="Editar contacto" className={styles.editIcon} />
+                        <img src={deleteIcon.src} alt="Borrar contacto" className={styles.deleteIcon} />
                     </div>
+                </div>
+                ))}
                 {/* {
                     <MyVerticallyCenteredModal
                         show={modalShow}
