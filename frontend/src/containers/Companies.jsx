@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import useGetData from '@hooks/useGetData';
 import endPoints from '@services/api';
+import { deleteCompany } from '@services/api/companies';
 import CompanyModal from '@common/CompanyModal'
 import styles from '@styles/Companies.module.scss';
 import editIcon from '@images/edit.png';
@@ -12,14 +13,14 @@ const Companies = () => {
     const [modalShow, setModalShow] = useState(false);
     const [ID, setID] = useState("");
 
-    const handleDelete = (id) => {
-        console.log("eliminando id " + id);
-        // deleteContact(id).then(response => console.log(response));
-        // setRemove(false);
+    const handleEdit = (id) => {
+        console.log("editing id: ", id)
     }
 
-    const show = () => {
-        setModalShow(true)
+    const handleDelete = (id) => {
+        console.log("eliminando id " + id);
+        deleteCompany(id).then(response => console.log(response));
+        setRemove(false);
     }
 
     return (
@@ -54,7 +55,7 @@ const Companies = () => {
                         {data.Phone}
                     </p>
                     <div className={styles.actions}>
-                        <img src={editIcon.src} alt="Editar contacto" className={styles.editIcon} onClick={() => show} />
+                        <img src={editIcon.src} alt="Editar contacto" className={styles.editIcon} onClick={() => {setModalShow(true), handleEdit(data.ID), setID(data.ID)} } />
                         <img src={deleteIcon.src} alt="Borrar contacto" className={styles.deleteIcon} onClick={() => {setRemove(true), setID(data.ID)} } />
                     </div>
                 </div>

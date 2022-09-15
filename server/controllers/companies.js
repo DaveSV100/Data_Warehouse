@@ -36,11 +36,12 @@ router.post("/companies", async (req, res) => {
 
 router.put("/companies", async (req, res) => {
     try {
-        const { id, name } = req.body;
-        if (id, name) {
+        const { id, name, city, direction, email, phone } = req.body;
+        const city_id = await getCityID(city);
+        if (id, name, city_id, direction, email, phone) {
             const add = await sequelize.query(
-                "UPDATE Companies SET Name = :name WHERE ID = :id",
-                { replacements: { name, id: id } }
+                "UPDATE Companies SET Name = :name, City_id = :city_id, Direction = :direction, Email = :email, Phone = :phone WHERE ID = :id",
+                { replacements: { name, city_id, direction, email, phone, id } }
             )
             res.status(200).json("Company updated");
         } else {
@@ -57,10 +58,10 @@ router.put("/companies", async (req, res) => {
 router.delete("/companies/:id", async(req, res) => {
     //Delete user by ID
     try {
-        const country_id = req.params.id;
+        const id = req.params.id;
         const deleteCountry = await sequelize.query(
             "DELETE FROM Companies WHERE id = :id",
-            { replacements: {id: country_id} }
+            { replacements: {id} }
         )
         res.status(200).json("Company removed");
     } catch (error) {
