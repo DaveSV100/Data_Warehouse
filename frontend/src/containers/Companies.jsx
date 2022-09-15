@@ -10,8 +10,6 @@ const Companies = () => {
 
     return (
         <>
-        <h2>Compañías</h2>
-        <button>Agregar</button>
         <section className={styles['main-container']}>
             <div className={styles.titles}>
                 <ul>
