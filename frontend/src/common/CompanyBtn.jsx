@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import ModalForm from '@components/ModalForm';
 import CompanyModal from '@common/CompanyModal';
-import styles from '@styles/ContactModal.module.scss';
+import styles from '@styles/CompanyBtn.module.scss';
 
 
   
@@ -12,7 +12,7 @@ import styles from '@styles/ContactModal.module.scss';
   
     return (
       <>
-        <Button className={styles.addContact} variant="primary" onClick={() => setModalShow(true)}>
+        <Button className={styles.addCompany} variant="primary" onClick={() => setModalShow(true)}>
           Agregar Compañía
         </Button>
   

@@ -1,8 +1,24 @@
 @import '_vars.scss';
 
+.header {
+    display: flex;
+    justify-items: center;
+    h2 {
+        padding-top: 5vh;
+        padding-left: 3vw;
+    }
+    div {
+        padding-top: 5vh;
+        padding-left: 65vw;
+    }
+}
+
 .main-container {
     margin-top: 5vh;
     color: $--black;
+}
+.title {
+    padding-left: 3vw;
 }
 .titles {
     ul {
@@ -103,7 +119,7 @@
         width: 40vw;
         background: rgba(59, 137, 193, 0.9);
         text-align: center;
-        h3 {
+        h4 {
             color: #fff;
         }
     }

@@ -69,7 +69,7 @@ const Companies = () => {
                     remove && 
                     <div className={styles.alert} onClick={()=> setRemove(false)}>
                         <div className={styles.ad}>
-                            <h3>¿Seguro que deseas eliminar la companía seleccionada?</h3>
+                            <h4>¿Seguro que deseas eliminar la companía seleccionada?</h4>
                             <button onClick={() => setRemove(false)}>Cerrar</button>
                             <button onClick={() => handleDelete(ID)}>Eliminar</button>                
                         </div>
