@@ -16,7 +16,7 @@ function CompanyModal(props) {
     const formRef = useRef(null);
     const [city, setCity] = useState(null);
     const [modalShow, setModalShow] = React.useState(false);
-    const [company, setCompany] = useState(props.product);
+    const [company, setCompany] = useState(props.company);
 
     console.log(company)
 
@@ -55,7 +55,7 @@ function CompanyModal(props) {
                 <Row className="mb-4">
                     <Form.Group as={Col} controlId="formGridName">
                     <Form.Label>Nombre</Form.Label>
-                    <Form.Control name="name" type="text" defaultValue={company} />
+                    <Form.Control name="name" type="text" defaultValue={"company"} />
                     </Form.Group>
                     <Form.Group value={city} onChange={(e) => setCity(e.target.value)} as={Col} controlId="formGridCity">
                     <Form.Label>Ciudad</Form.Label>

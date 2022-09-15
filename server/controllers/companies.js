@@ -15,6 +15,18 @@ router.get("/companies", async (req, res) => {
     }
 });
 
+router.get("/companies/:id", async (req, res) => {
+    const id = req.params.id;
+    try {
+        const records = await sequelize.query("SELECT Companies.ID, Companies.Name, Cities.Name as City, Companies.Direction, Companies.Email, Companies.Phone FROM Companies INNER JOIN Cities on Companies.City_id = Cities.ID WHERE Companies.ID = :id", 
+        { replacements: {id}, type: sequelize.QueryTypes.SELECT })
+        res.status(200).json(records);
+    } catch(error) {
+        res.status(400).json(`Error message: ${error}`)
+        console.error(error);
+    }
+});
+
 router.post("/companies", async (req, res) => {
     try {
         const { name, city, direction, email, phone } = req.body;

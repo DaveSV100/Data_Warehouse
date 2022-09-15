@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import useGetData from '@hooks/useGetData';
 import endPoints from '@services/api';
 import { deleteCompany } from '@services/api/companies';
+import axios from 'axios';
 import CompanyModal from '@common/CompanyModal'
 import styles from '@styles/Companies.module.scss';
 import editIcon from '@images/edit.png';
@@ -12,9 +13,20 @@ const Companies = () => {
     const [remove, setRemove] = useState(false);
     const [modalShow, setModalShow] = useState(false);
     const [ID, setID] = useState("");
+    const [data, setData] = useState({});
+
+    useEffect(() => {
+        async function getData() {
+            const response = await axios.get(endPoints.companies.getCompany(ID));
+            console.log(response)
+            setData(response.data);
+        }
+        getData()
+    }, [])
 
     const handleEdit = (id) => {
-        console.log("editing id: ", id)
+        console.log("editing id: ", id);
+        
     }
 
     const handleDelete = (id) => {
@@ -64,7 +76,7 @@ const Companies = () => {
                     <CompanyModal
                         show={modalShow}
                         onHide={() => setModalShow(false)}
-                        product={"hello"}
+                        company={data}
                     />
                 } 
                 {
