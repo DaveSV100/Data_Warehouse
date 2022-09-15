@@ -64,6 +64,7 @@ const Companies = () => {
                     <CompanyModal
                         show={modalShow}
                         onHide={() => setModalShow(false)}
+                        product={"hello"}
                     />
                 } 
                 {

@@ -12,11 +12,13 @@ import styles from '@styles/Modal.module.scss'
 import styles2 from '@styles/ModalForm.module.scss';
 
 function CompanyModal(props) {
-
     const cities = useGetData(endPoints.cities.getCities);
     const formRef = useRef(null);
     const [city, setCity] = useState(null);
     const [modalShow, setModalShow] = React.useState(false);
+    const [company, setCompany] = useState(props.product);
+
+    console.log(company)
 
 
 
@@ -53,7 +55,7 @@ function CompanyModal(props) {
                 <Row className="mb-4">
                     <Form.Group as={Col} controlId="formGridName">
                     <Form.Label>Nombre</Form.Label>
-                    <Form.Control name="name" type="text" />
+                    <Form.Control name="name" type="text" defaultValue={company} />
                     </Form.Group>
                     <Form.Group value={city} onChange={(e) => setCity(e.target.value)} as={Col} controlId="formGridCity">
                     <Form.Label>Ciudad</Form.Label>
