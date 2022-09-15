@@ -1,12 +1,26 @@
 import React, { useState } from 'react';
 import useGetData from '@hooks/useGetData';
 import endPoints from '@services/api';
+import CompanyModal from '@common/CompanyModal'
 import styles from '@styles/Companies.module.scss';
 import editIcon from '@images/edit.png';
 import deleteIcon from '@images/delete.png';
 
 const Companies = () => {
     const companies = useGetData(endPoints.companies.getCompanies);
+    const [remove, setRemove] = useState(false);
+    const [modalShow, setModalShow] = useState(false);
+    const [ID, setID] = useState("");
+
+    const handleDelete = (id) => {
+        console.log("eliminando id " + id);
+        // deleteContact(id).then(response => console.log(response));
+        // setRemove(false);
+    }
+
+    const show = () => {
+        setModalShow(true)
+    }
 
     return (
         <>
@@ -40,24 +54,27 @@ const Companies = () => {
                         {data.Phone}
                     </p>
                     <div className={styles.actions}>
-                        <img src={editIcon.src} alt="Editar contacto" className={styles.editIcon} />
-                        <img src={deleteIcon.src} alt="Borrar contacto" className={styles.deleteIcon} />
+                        <img src={editIcon.src} alt="Editar contacto" className={styles.editIcon} onClick={() => show} />
+                        <img src={deleteIcon.src} alt="Borrar contacto" className={styles.deleteIcon} onClick={() => {setRemove(true), setID(data.ID)} } />
                     </div>
                 </div>
                 ))}
-                {/* {
-                    <MyVerticallyCenteredModal
+                {
+                    <CompanyModal
                         show={modalShow}
                         onHide={() => setModalShow(false)}
                     />
-                }
+                } 
                 {
-                    open && <div className={styles.alert}>
-                        <h2>¿Seguro que deseas eliminar los contactos seleccionados?</h2>
-                        <button onClick={() => setOpen(false)}>Cerrar</button>
-                        <button onClick={() => handleDelete(ID)}>Eliminar</button>
+                    remove && 
+                    <div className={styles.alert} onClick={()=> setRemove(false)}>
+                        <div className={styles.ad}>
+                            <h3>¿Seguro que deseas eliminar la companía seleccionada?</h3>
+                            <button onClick={() => setRemove(false)}>Cerrar</button>
+                            <button onClick={() => handleDelete(ID)}>Eliminar</button>                
+                        </div>
                     </div>
-                } */}
+                }
             </div>
 
         </section>

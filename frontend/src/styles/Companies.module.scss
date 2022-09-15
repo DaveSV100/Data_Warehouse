@@ -87,9 +87,24 @@
     }
 }
 .alert {
-    position: absolute;
-    background-color: rgb(227, 223, 223);
-    width: 40vw;
-    margin-top: -50vh;
-    margin-left: 30vw;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 20;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: rgba(255, 255, 255, .9);
+    .ad {
+        margin: 0 auto 0;
+        height: auto;
+        width: 40vw;
+        background: rgba(59, 137, 193, 0.9);
+        text-align: center;
+        h3 {
+            color: #fff;
+        }
+    }
 }
