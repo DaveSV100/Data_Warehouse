@@ -1,4 +1,5 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import CompanyForm from '@components/CompanyForm';
@@ -15,12 +16,14 @@ function CompanyModal(props) {
     const cities = useGetData(endPoints.cities.getCities);
     const formRef = useRef(null);
     const [city, setCity] = useState(null);
-    const [modalShow, setModalShow] = React.useState(false);
-    const [company, setCompany] = useState(props.company);
 
-    console.log(company)
-
-
+    console.log(props.editing)
+  
+    if(props.id) {
+      console.log("Updating the id: ", props.id)
+    } else {
+      console.log("Creating a new company")
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,9 +35,14 @@ function CompanyModal(props) {
             email: formData.get("email"),
             phone: formData.get("phone")
         }
-        addCompany(data).then((response) => {
+        if (props.editing === "true") {
+          console.log("UPDATING")
+        } else {
+          console.log("POSTING")
+          addCompany(data).then((response) => {
             console.log(response);
-        })
+          })
+        }
     }
 
     return (
@@ -51,11 +59,11 @@ function CompanyModal(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <Form ref={formRef} onSubmit={handleSubmit}>
+            <Form ref={formRef} onSubmit={handleSubmit} onChange={console.log(props)}>
                 <Row className="mb-4">
                     <Form.Group as={Col} controlId="formGridName">
                     <Form.Label>Nombre</Form.Label>
-                    <Form.Control name="name" type="text" defaultValue={"company"} />
+                    <Form.Control name="name" type="text" />
                     </Form.Group>
                     <Form.Group value={city} onChange={(e) => setCity(e.target.value)} as={Col} controlId="formGridCity">
                     <Form.Label>Ciudad</Form.Label>

@@ -13,20 +13,11 @@ const Companies = () => {
     const [remove, setRemove] = useState(false);
     const [modalShow, setModalShow] = useState(false);
     const [ID, setID] = useState("");
-    const [data, setData] = useState({});
-
-    useEffect(() => {
-        async function getData() {
-            const response = await axios.get(endPoints.companies.getCompany(ID));
-            console.log(response)
-            setData(response.data);
-        }
-        getData()
-    }, [])
+    const [data, setData] = useState("");
+    const [doIEdit, setDoIEdit] = useState("false");
 
     const handleEdit = (id) => {
         console.log("editing id: ", id);
-        
     }
 
     const handleDelete = (id) => {
@@ -50,33 +41,35 @@ const Companies = () => {
             </div>
             <div className={styles.UsersList}>
                 {companies.map(data => (
-                    <div className={styles['contact-container']} key={`Contact-`}>
-                    <p className={styles.name}>
+                    <div className={styles['contact-container']}>
+                    <p className={styles.name} key={`name-${data.ID}`}>
                         {data.Name}
                     </p>
-                    <p className={styles.city_id}>
+                    <p className={styles.city_id} key={`city-${data.ID}`}>
                         {data.City}
                     </p>
-                    <p className={styles.direction}>
+                    <p className={styles.direction} key={`direction-${data.ID}`}>
                         {data.Direction}
                     </p>
-                    <p className={styles.email}>
+                    <p className={styles.email} key={`email-${data.ID}`}>
                         {data.Email}
                     </p>
-                    <p className={styles.phone}>
+                    <p className={styles.phone} key={`phone-${data.ID}`}>
                         {data.Phone}
                     </p>
-                    <div className={styles.actions}>
-                        <img src={editIcon.src} alt="Editar contacto" className={styles.editIcon} onClick={() => {setModalShow(true), handleEdit(data.ID), setID(data.ID)} } />
-                        <img src={deleteIcon.src} alt="Borrar contacto" className={styles.deleteIcon} onClick={() => {setRemove(true), setID(data.ID)} } />
+                    <div className={styles.actions} key={`actions--${data.ID}`}>
+                        <img src={editIcon.src} alt="Editar contacto" key={`edit-${data.ID}`} className={styles.editIcon} onClick={() => {setModalShow(true), handleEdit(data.ID), setID(data.ID), setDoIEdit("false") } } />
+                        <img src={deleteIcon.src} alt="Borrar contacto" key={`delete-${data.ID}`} className={styles.deleteIcon} onClick={() => {setRemove(true), setID(data.ID)} } />
                     </div>
                 </div>
                 ))}
                 {
                     <CompanyModal
+                        key={"companyModal"}
                         show={modalShow}
-                        onHide={() => setModalShow(false)}
-                        company={data}
+                        onHide={() => {setModalShow(false), setDoIEdit("true")} }
+                        id={ID}
+                        editing={doIEdit}
                     />
                 } 
                 {
