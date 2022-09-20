@@ -16,15 +16,18 @@ function CompanyModal(props) {
     const cities = useGetData(endPoints.cities.getCities);
     const formRef = useRef(null);
     const [city, setCity] = useState(null);
+    const [title, setTitle] = useState("Compañía")
 
-    console.log(props.editing)
-  
-    if(props.id) {
-      console.log("Updating the id: ", props.id)
-    } else {
-      console.log("Creating a new company")
+    console.log(props)
+    const editTitle = () => {
+      console.log("jjasrkfzdsnfma")
+      // console.log(props.endpoint)
+      // if(props.endpoint === "Put") {
+      //   setTitle("Editar compañía")
+      // } else {
+      //   setTitle("Crear compañía")
+      // }
     }
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData(formRef.current);
@@ -55,11 +58,11 @@ function CompanyModal(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Nueva Compañía
+            {title}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <Form ref={formRef} onSubmit={handleSubmit} onChange={console.log(props)}>
+            <Form ref={formRef} onSubmit={handleSubmit}>
                 <Row className="mb-4">
                     <Form.Group as={Col} controlId="formGridName">
                     <Form.Label>Nombre</Form.Label>

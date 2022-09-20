@@ -12,10 +12,25 @@ const Companies = () => {
     const companies = useGetData(endPoints.companies.getCompanies);
     const [remove, setRemove] = useState(false);
     const [modalShow, setModalShow] = useState(false);
-    const [ID, setID] = useState("");
-    const [data, setData] = useState("");
+    const [ID, setID] = useState(null);
     const [doIEdit, setDoIEdit] = useState("false");
+    const [endpoint, setEndpoint] = useState("Post");
 
+    useEffect(() => {
+        if(ID != null) {
+            console.log("THE ID IS:", ID)
+            async function getData() {
+                console.log()
+                const response = await axios.get(endPoints.companies.getCompany(ID));
+                // setData(response.data);
+                console.log("Company:::", response.data)
+            }
+            getData()
+        } else {
+            console.log("there's no id")
+        }
+    }, [ID])
+    
     const handleEdit = (id) => {
         console.log("editing id: ", id);
     }
@@ -58,8 +73,8 @@ const Companies = () => {
                         {data.Phone}
                     </p>
                     <div className={styles.actions} key={`actions--${data.ID}`}>
-                        <img src={editIcon.src} alt="Editar contacto" key={`edit-${data.ID}`} className={styles.editIcon} onClick={() => {setModalShow(true), handleEdit(data.ID), setID(data.ID), setDoIEdit("false") } } />
-                        <img src={deleteIcon.src} alt="Borrar contacto" key={`delete-${data.ID}`} className={styles.deleteIcon} onClick={() => {setRemove(true), setID(data.ID)} } />
+                        <img src={editIcon.src} alt="Editar contacto" key={`edit-${data.ID}`} className={styles.editIcon} onClick={() => {setModalShow(true), handleEdit(data.ID), setID(data.ID), setDoIEdit("false"), setEndpoint("Put") } } />
+                        <img src={deleteIcon.src} alt="Borrar contacto" key={`delete-${data.ID}`} className={styles.deleteIcon} onClick={() => {setRemove(true), setID(data.ID) } } />
                     </div>
                 </div>
                 ))}
@@ -67,9 +82,10 @@ const Companies = () => {
                     <CompanyModal
                         key={"companyModal"}
                         show={modalShow}
-                        onHide={() => {setModalShow(false), setDoIEdit("true")} }
+                        onHide={() => {setModalShow(false), setDoIEdit("true"), setEndpoint("Post"), setID(null) } }
                         id={ID}
                         editing={doIEdit}
+                        endpoint={endpoint}
                     />
                 } 
                 {
