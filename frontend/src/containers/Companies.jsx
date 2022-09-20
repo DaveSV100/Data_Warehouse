@@ -15,6 +15,7 @@ const Companies = () => {
     const [ID, setID] = useState(null);
     const [doIEdit, setDoIEdit] = useState("false");
     const [endpoint, setEndpoint] = useState("Post");
+    const [data, setData] = useState("")
 
     useEffect(() => {
         if(ID != null) {
@@ -22,7 +23,7 @@ const Companies = () => {
             async function getData() {
                 console.log()
                 const response = await axios.get(endPoints.companies.getCompany(ID));
-                // setData(response.data);
+                setData(response.data[0].Name);
                 console.log("Company:::", response.data)
             }
             getData()
@@ -86,6 +87,7 @@ const Companies = () => {
                         id={ID}
                         editing={doIEdit}
                         endpoint={endpoint}
+                        data={data}
                     />
                 } 
                 {

@@ -17,17 +17,19 @@ function CompanyModal(props) {
     const formRef = useRef(null);
     const [city, setCity] = useState(null);
     const [title, setTitle] = useState("Compañía")
+    
+    const placeholder = props.data;
+    console.log(typeof(placeholder))
 
-    console.log(props)
-    const editTitle = () => {
-      console.log("jjasrkfzdsnfma")
-      // console.log(props.endpoint)
-      // if(props.endpoint === "Put") {
-      //   setTitle("Editar compañía")
-      // } else {
-      //   setTitle("Crear compañía")
-      // }
-    }
+    // const editTitle = () => {
+    //   console.log("jjasrkfzdsnfma")
+    //   // console.log(props.endpoint)
+    //   // if(props.endpoint === "Put") {
+    //   //   setTitle("Editar compañía")
+    //   // } else {
+    //   //   setTitle("Crear compañía")
+    //   // }
+    // }
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData(formRef.current);
@@ -66,7 +68,7 @@ function CompanyModal(props) {
                 <Row className="mb-4">
                     <Form.Group as={Col} controlId="formGridName">
                     <Form.Label>Nombre</Form.Label>
-                    <Form.Control name="name" type="text" />
+                    <Form.Control defaultValue={placeholder} name="name" type="text" />
                     </Form.Group>
                     <Form.Group value={city} onChange={(e) => setCity(e.target.value)} as={Col} controlId="formGridCity">
                     <Form.Label>Ciudad</Form.Label>
