@@ -4,9 +4,9 @@ require("dotenv").config({ path: "../.env" });
 const sequelize = require("../models/connection.js");
 const { getCityID } = require("./utils/index.js")
 
-router.get("/companies", async (req, res) => {
+router.get("/contacts", async (req, res) => {
     try {
-        const records = await sequelize.query("SELECT Companies.ID, Companies.Name, Cities.Name as City, Companies.Direction, Companies.Email, Companies.Phone FROM Companies INNER JOIN Cities on Companies.City_id = Cities.ID ORDER BY Companies.ID ASC", { type: sequelize.QueryTypes.SELECT })
+        const records = await sequelize.query("SELECT * FROM Contacts", { type: sequelize.QueryTypes.SELECT })
         res.status(200).json(records);
     } catch(error) {
         res.status(400).json(`Error message: ${error}`)
@@ -14,7 +14,7 @@ router.get("/companies", async (req, res) => {
     }
 });
 
-router.get("/companies/:id", async (req, res) => {
+router.get("/contacts/:id", async (req, res) => {
     const companyID = req.params.id;
     try {
         const records = await sequelize.query("SELECT Companies.ID, Companies.Name, Cities.Name as City, Companies.Direction, Companies.Email, Companies.Phone FROM Companies INNER JOIN Cities on Companies.City_id = Cities.ID WHERE Companies.ID = :id", 
@@ -26,26 +26,29 @@ router.get("/companies/:id", async (req, res) => {
     }
 });
 
-router.post("/companies", async (req, res) => {
+router.post("/contacts", async (req, res) => {
     try {
-        const { name, city, direction, email, phone } = req.body;
-        const city_id = await getCityID(city);
-        if (name, city_id, direction, email, phone) {
+        const { contact, email, direction, city_id, country_id, region_id, company_id, job, channel, interest } = req.body;
+        // const city_id = await getCityID(city);
+        // const country_id = await getCountryID(country);
+        // const region_id = await getRegionID(region);
+        // const company_id = await getCompanyID(company);
+        if (contact, email, direction, city_id, country_id, region_id, company_id, job, channel, interest) {
             const add = await sequelize.query(
-                "INSERT INTO Companies (Name, City_id, Direction, Email, Phone) VALUES (:name, :city_id, :direction, :email, :phone)",
-                { replacements: {name, city_id, direction, email, phone} }
+                "INSERT INTO Contacts (Contact, Email, Direction, City_id, Country_id, Region_id, Company_id, Job, Channel, Interest) VALUES (:contact, :email, :direction, :city_id, :country_id, :region_id, :company_id, :job, :channel, :interest)",
+                { replacements: {contact, email, direction, city_id, country_id, region_id, company_id, job, channel, interest} }
             )
-            res.status(200).json("Company added");
+            res.status(200).json("Contact added");
         } else {
             res.status(400).json("Error message: You need to insert the data required" );
         }
     } catch (error) {
-        res.status(400).json("Error message: " + error);
+        res.status(400).json("Error: " + error);
         console.error(error);
     }
 })
 
-router.put("/companies", async (req, res) => {
+router.put("/contacts", async (req, res) => {
     try {
         const { id, name, city, direction, email, phone } = req.body;
         const city_id = await getCityID(city);
@@ -66,7 +69,7 @@ router.put("/companies", async (req, res) => {
 
 
 
-router.delete("/companies/:id", async(req, res) => {
+router.delete("/contacts/:id", async(req, res) => {
     //Delete user by ID
     try {
         const id = req.params.id;

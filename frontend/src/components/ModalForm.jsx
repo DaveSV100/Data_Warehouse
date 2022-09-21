@@ -107,10 +107,10 @@ function ModalForm() {
           <Form.Label>Interés</Form.Label>
           <Form.Select defaultValue="Seleccionar...">
           <option>Seleccionar...</option>
-            <option>0</option>
-            <option>25</option>
-            <option>50</option>
-            <option>100</option>
+            <option>0%</option>
+            <option>25%</option>
+            <option>50%</option>
+            <option>100%</option>
           </Form.Select>
         </Form.Group>
       </Row>
