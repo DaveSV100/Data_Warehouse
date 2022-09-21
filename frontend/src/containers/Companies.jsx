@@ -28,6 +28,7 @@ const Companies = () => {
             }
             getData()
         } else {
+            setData(null);
             console.log("there's no id")
         }
     }, [ID])
