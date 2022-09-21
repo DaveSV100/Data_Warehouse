@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import useGetData from '@hooks/useGetData';
 import endPoints from '@services/api';
-import { addCompany } from '@services/api/companies';
+import { addCompany, updateCompany, deleteCompany } from '@services/api/companies';
 import styles from '@styles/Modal.module.scss'
 import styles2 from '@styles/ModalForm.module.scss';
 
@@ -16,11 +16,17 @@ function CompanyModal(props) {
     const cities = useGetData(endPoints.cities.getCities);
     const formRef = useRef(null);
     const [city, setCity] = useState(null);
+    const [ID, setID] = useState(null);
+
+    const modalOpened = () => {
+      setID(props.id);
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData(formRef.current);
         const data = {
+            id: ID,
             name: formData.get('name'),
             city: city,
             direction: formData.get("direction"),
@@ -29,6 +35,10 @@ function CompanyModal(props) {
         }
         if (props.editing === "true") {
           console.log("UPDATING")
+          console.log(data)
+          updateCompany(data).then((response) => {
+            console.log(response);
+          })
         } else {
           console.log("POSTING")
           addCompany(data).then((response) => {
@@ -44,6 +54,7 @@ function CompanyModal(props) {
         size="xl"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        onShow={() => modalOpened()}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
